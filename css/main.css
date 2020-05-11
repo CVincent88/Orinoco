@@ -85,6 +85,17 @@ footer .link-box a:hover::before {
   -webkit-box-shadow: 0 0 3px #7e777e;
           box-shadow: 0 0 3px #7e777e;
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.img-container {
+  width: 20%;
+  height: 145px;
 }
 
 .my-cart-container {

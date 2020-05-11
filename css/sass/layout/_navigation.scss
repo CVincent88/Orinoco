@@ -6,4 +6,11 @@
     background-color: $background-color-primary;
     box-shadow: 0 0 3px $list-element-shadow;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.img-container{
+    width: 20%;
+    height: 145px;
 }
