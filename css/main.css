@@ -78,7 +78,7 @@ footer .link-box a:hover::before {
 
 .list-element {
   width: 90%;
-  height: 150px;
+  height: 175px;
   margin: 15px auto;
   list-style-type: none;
   background-color: #F3EAF3;
@@ -88,14 +88,48 @@ footer .link-box a:hover::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-.img-container {
+.list-element_img {
   width: 20%;
   height: 145px;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+
+.list-element_text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  width: 60%;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+.list-element_text_name {
+  font-size: 1.4em;
+}
+
+.list-element_price {
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+  font-size: 1.5em;
 }
 
 .my-cart-container {
