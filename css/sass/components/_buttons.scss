@@ -1,34 +1,73 @@
-.my-cart-container{
-    width: 100%;
-    height: 100%;
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-}
-
-.my-cart{
-    position: sticky; top: 20vh; left: 100vw - 10vw;
-    z-index: 999;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 67px;
-    background-color: white;
-    cursor: pointer;
-    box-shadow: 0 0 3px rgba(0, 0, 0, .4);
-    & .fas{
-        font-size: 1.7em;
-    }
-    & .basket-icon{
-        color: $cart-icon-color;
-    }
+.notification-panel{
+    width: 200px;
+    position: fixed; top: 20vh; left: 100vw - 20vw;
+    
     & .notification{
         height: 20px;
         width: 20px;
         line-height: 20px;
         position: absolute; top: 0; right: 0;
         border-radius: 50%;
-        background-color: rgba(255, 0, 0, .8);
+        background-color: rgba(219, 1, 1, 0.9);
         color: white;
-        opacity: 0;
+        opacity: 1;
+        z-index: 99;
+        text-align: center;
+    }
+    .my-cart-large-container{
+        width: 200px;
+        overflow: hidden;
+        border: 0;
+        border-radius: 50px 50px ;
+        & .my-cart-container{
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover .my-cart{
+                transform: translateX(0);
+            }
+            &:hover .my-cart .fas{
+                transform: rotateY(180deg);
+            }
+            &:hover .my-cart .basket-container{
+                color: $cart-icon-color-secondary;
+            }
+            &:hover .my-cart .basket-container_texte{
+                opacity: 1;
+            }
+            .my-cart{
+                width: 200px;
+                border-radius: 50px 50px ;
+                text-align: center;
+                line-height: 67px;
+                background-color: white;
+                cursor: pointer;
+                transform: translateX(8em);
+                transform-origin: center left;
+                transition: transform .5s ease-in-out;
+                & .fas{
+                    font-size: 1.7em;
+                    transform: rotate(0);
+                    transition: transform .5s ease-in-out;
+                }
+                & .basket-container{
+                    color: $cart-icon-color-primary;
+                    transition: color .5s ease-in-out;
+                    &_texte{
+                        color: $cart-icon-color-primary;
+                        font-family: 'Balsamiq Sans', cursive;
+                        font-size: 1.5em;
+                        display: inline-block;
+                        margin: 2px;
+                        opacity: 0;
+                        transition: opacity .5s ease-in-out;
+                    }
+                }
+            }
+        }
     }
 }
+
+
+

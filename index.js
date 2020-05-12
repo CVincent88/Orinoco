@@ -1,6 +1,5 @@
 // Appel du fichier json //
 // --------------------- //
-
 let requestURL = "http://localhost:3000/api/cameras";
 let myRequest = new XMLHttpRequest();
 
@@ -21,16 +20,20 @@ myRequest.onreadystatechange = function() {
             newListElt.classList.add('list-element');
             unorderedList.appendChild(newListElt);
 
-            // + une div à l'intérieur
+            // + une div à l'intérieur pour le texte
             let textContainer = document.createElement('div');
             textContainer.classList.add('list-element_text');
             newListElt.appendChild(textContainer);
 
-            // Ajout image produit
+            // Ajout image produit + container
+            let imgContainer = document.createElement('div');
+            imgContainer.classList.add('list-element_img');
+            newListElt.appendChild(imgContainer);
+            // +
             let img = document.createElement('img');
-            img.classList.add('list-element_img');
-            img.setAttribute('src', response[i].imageUrl)
-            newListElt.appendChild(img);
+            // img.classList.add('list-element_img');
+            img.setAttribute('src', response[i].imageUrl);
+            imgContainer.appendChild(img);
 
             // Ajout nom produit
             let name = document.createElement('span');
@@ -48,13 +51,10 @@ myRequest.onreadystatechange = function() {
             // Ajout prix produit
             let price = document.createElement('span');
             price.classList.add('list-element_price');
-            price.textContent = '$ ' + response[i].price;
+            price.textContent = '$ ' + response[i].price / 100;
             newListElt.appendChild(price);
         }
     }
 };
-
-// Création image dans chaque élément de liste //
-// ------------------------------------------- //
 
 
