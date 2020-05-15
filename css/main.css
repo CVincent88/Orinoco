@@ -16,6 +16,7 @@ header {
 }
 
 header .logo {
+  display: block;
   margin: 0 auto;
   width: 333px;
   height: 150px;
@@ -84,7 +85,18 @@ footer .link-box a:hover::before {
   background-color: #F3EAF3;
   -webkit-box-shadow: 0 0 3px #7e777e;
           box-shadow: 0 0 3px #7e777e;
-  cursor: pointer;
+}
+
+.list-element:hover .list-element_link_img img {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.list-element_link {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -93,14 +105,10 @@ footer .link-box a:hover::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  color: #000000;
 }
 
-.list-element:hover .list-element_img img {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-}
-
-.list-element_img {
+.list-element_link_img {
   width: 20%;
   height: 145px;
   -webkit-box-ordinal-group: 2;
@@ -109,7 +117,7 @@ footer .link-box a:hover::before {
   overflow: hidden;
 }
 
-.list-element_img img {
+.list-element_link_img img {
   width: 100%;
   height: 145px;
   -webkit-transform: scale(1);
@@ -120,7 +128,7 @@ footer .link-box a:hover::before {
   transition: transform 2s ease-in-out, -webkit-transform 2s ease-in-out;
 }
 
-.list-element_text {
+.list-element_link_text {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -138,11 +146,11 @@ footer .link-box a:hover::before {
           order: 2;
 }
 
-.list-element_text_name {
+.list-element_link_text_name {
   font-size: 1.4em;
 }
 
-.list-element_price {
+.list-element_link_price {
   -webkit-box-ordinal-group: 4;
       -ms-flex-order: 3;
           order: 3;
