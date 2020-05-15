@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a61f28c43a.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/a61f28c43a.js" crossorigin="anonymous"></script> -->
 
     <title>Document</title>
 </head>
@@ -14,28 +14,42 @@
         <div class="logo"></div>
     </header>
 
-        <div class="notification-panel">
-            <span class="notification">2</span>
-            <div class="my-cart-large-container">
-                <div class="my-cart-container">
-                    <div class="my-cart">
-                        <div class="basket-container">
-                            <i class="fas fa-shopping-basket"></i>
-                            <span class="basket-container_texte">Mon panier</span>
-                        </div>
+
+    <div id="notif-panel" class="notification-panel">
+        <span class="notification">2</span>
+        <div id="product-button" class="my-product-large-container">
+            <div class="my-product-container">
+                <div class="my-product">
+                    <div class="product-container">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span class="product-container_texte">Mon panier</span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div id="product-pages" class="product-page">
+        <span id="close-page" class="product-page_close">x</span>
+        <div class="product-page_img"></div>
+        <div class="customization">
+            <p class="customization_text">Peronnalisez votre produit : </p>
+            <select name="customization" id="customization" class="customization_options">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="product-page_text">
+            <span class="product-page_text_name">Camera vintage 20.Aso</span>
+            <p class="product-page_text_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In magni beatae eum qui facilis. Laudantium temporibus vitae enim recusandae unde adipisci tempora nisi? Iusto doloremque libero laudantium quam tenetur eveniet!.</p>
+            <span class="product-page_text_price">$39.95</span>
+        </div>
+        <button class="product-page_add">Ajouter au panier</button>
+    </div>
         
-
-
-        
-        
-
-    
-    <nav>
-
+    <nav id="nav">
         <ul id="define-list">
             <!-- <li class="list-element">
                 <div class="list-element_img">
@@ -48,9 +62,8 @@
                 <span class="list-element_price">$39.95</span>
             </li> -->
         </ul>
-
-
     </nav>
+    
 
     <footer>
         <div class="link-box">

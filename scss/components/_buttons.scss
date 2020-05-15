@@ -14,29 +14,29 @@
         z-index: 99;
         text-align: center;
     }
-    .my-cart-large-container{
+    .my-product-large-container{
         width: 200px;
         overflow: hidden;
         border: 0;
         border-radius: 50px 50px ;
-        & .my-cart-container{
+        & .my-product-container{
             width: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
-            &:hover .my-cart{
+            &:hover .my-product{
                 transform: translateX(0);
             }
-            &:hover .my-cart .fas{
+            &:hover .my-product .fas{
                 transform: rotateY(180deg);
             }
-            &:hover .my-cart .basket-container{
-                color: $cart-icon-color-secondary;
+            &:hover .my-product .product-container{
+                color: $product-icon-color-secondary;
             }
-            &:hover .my-cart .basket-container_texte{
+            &:hover .my-product .product-container_texte{
                 opacity: 1;
             }
-            .my-cart{
+            .my-product{
                 width: 200px;
                 border-radius: 50px 50px ;
                 text-align: center;
@@ -45,23 +45,24 @@
                 cursor: pointer;
                 transform: translateX(8em);
                 transform-origin: center left;
-                transition: transform .5s ease-in-out;
+                transition: transform .3s ease-in-out;
                 & .fas{
                     font-size: 1.7em;
                     transform: rotate(0);
-                    transition: transform .5s ease-in-out;
+                    transition: transform .3s ease-in-out;
                 }
-                & .basket-container{
-                    color: $cart-icon-color-primary;
-                    transition: color .5s ease-in-out;
+                & .product-container{
+                    color: $product-icon-color-primary;
+                    transition: color .3s ease-in-out;
                     &_texte{
-                        color: $cart-icon-color-primary;
+                        user-select: none;
+                        color: $product-icon-color-primary;
                         font-family: 'Balsamiq Sans', cursive;
                         font-size: 1.5em;
                         display: inline-block;
                         margin: 2px;
                         opacity: 0;
-                        transition: opacity .5s ease-in-out;
+                        transition: opacity .3s ease-in-out;
                     }
                 }
             }

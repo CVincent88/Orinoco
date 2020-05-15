@@ -1,7 +1,9 @@
-@import "./sass/utils/variables";
-@import "./sass/base/base";
-@import "./sass/layout/header";
-@import "./sass/layout/footer";
-@import "./sass/layout/navigation";
-@import "./sass/layout/list-items";
-@import "./sass/components/buttons";
+@import "../scss/utils/variables";
+@import "../scss/base/base";
+@import "../scss/layout/header";
+@import "../scss/layout/footer";
+@import "../scss/layout/list-items";
+@import "../scss/layout/product";
+@import "../scss/components/buttons";
+@import "../scss/components/scrollbar";
+@import "../scss/page/home";
