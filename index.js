@@ -10,10 +10,8 @@ function obtenirData(url) {
     });
 }
 
-
-
-// *** Construction du HTML *** //
-// ---------------------------- //
+// *** Construction du index.html *** //
+// ---------------------------------- //
 obtenirData("http://localhost:3000/api/cameras")
     .then((cameras) => {
 
@@ -64,16 +62,13 @@ obtenirData("http://localhost:3000/api/cameras")
             // Prix du produit
             let price = document.createElement('span');
             price.classList.add('list-element_link_price');
-            price.textContent = '$ ' + cameras[i].price / 100;
+            price.textContent = `$ ${cameras[i].price / 100}`;
             newLinkElt.appendChild(price);
         }  
     })
     .catch((error) => {
         console.log(error);
     });
-
-    
-
 
 
 
