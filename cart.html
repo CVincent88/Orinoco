@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a61f28c43a.js" crossorigin="anonymous"></script>
+
+    <title>Orinoco | Oricam - Vente d'appareil photo</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"></a>
+    </header>
+
+    <section class="cart-wrapper">
+        <h1>Mon panier</h1>
+        <table class="in-cart">
+            <tr class="in-cart_product">
+                <td class="in-cart_product_img"></td>
+                <td class="in-cart_product_name">Asus 430</td>
+                <td class="in-cart_product_price">$399</td>
+                <td class="in-cart_product_quantity">
+                    <form action="POST" method="#">
+                        <label for="quantity">Quantité: </label>
+                        <input type="number" min="1" max="50" id="quantity" name="quantity" value="1">
+                    </form>
+                </td>
+                <td class="in-cart_product_delete">
+                    <button>X</button>
+                </td>
+            </tr>
+            <tr class="total-cost">
+                <td colspan="5">Total: 100 patates</td>
+            </tr>
+        </table>
+        <div class="form">
+            <h2>Vos informations</h2>
+            <form action="POST" method="#">
+                <div class="first-name-container">
+                    <label for="first-name">Prénom</label>
+                    <input type="text" id="first-name" class="first-name" required>
+                </div>
+                <div class="last-name-container">
+                    <label for="last-name">Nom</label>
+                    <input type="text" id="last-name" class="last-name" required>
+                </div>
+                <div class="address-container">
+                    <label for="address">Adresse</label>
+                    <input type="text" id="address" class="address" required>
+                </div>
+                <div class="city-container">
+                    <label for="city">Ville</label>
+                    <input type="text" id="city" class="city" required>
+                </div>
+                <div class="email-container">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" class="email" required>
+                </div>
+                <input type="submit" value="Passer la commande" class="input">
+            </form>
+        </div>
+        
+    </section>
+
+
+    <footer>
+        <div class="link-box">
+            <a href="#">Mentions légales</a>
+            <span>-</span>
+            <a href="#">Contact</a>
+        </div>
+        
+    </footer>
+
+    <script src="product.js"></script>
+</body>
+</html>
