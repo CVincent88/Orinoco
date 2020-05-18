@@ -15,7 +15,7 @@
     </header>
 
     <a href="cart.html" id="notif-panel" class="notification-panel">
-        <span class="notification">2</span>
+        <span id="notifications" class="notification"></span>
         <div id="cart-button" class="my-cart-large-container">
             <div class="my-cart-container">
                 <div class="my-cart">
@@ -29,28 +29,29 @@
     </a>
 
     <section id="product-wrapper" class="product-container">
-        <!-- <img class="product-container_img"></img> -->
+        <!-- <img class="product-container_img"></img> : Généré avec JS-->
         <div id="customization-wrapper" class="product-container_customization">
             <p id="customization-text" class="product-container_customization_text"></p>
             <select name="customization" id="customization-options" class="product-container_customization_options">
             </select>
         </div>
-        <!-- <span class="product-container_text_name"></span> -->
-        <!-- <p class="product-container_text_description"></p> -->
+        <!-- <span class="product-container_text_name"></span> : Généré avec JS-->
+        <!-- <p class="product-container_text_description"></p> : Généré avec JS-->
         <div class="product-container_ratings"><span>Avis:</span> Aucun avis pour le moment</div>
         <span id="product-price" class="product-container_price"></span>
-        <button class="product-container_add-cart">Ajouter au panier</button>
+        <button id="add-cart" class="product-container_add-cart">Ajouter au panier</button>
     </section>
 
     <footer>
         <div class="link-box">
             <a href="#">Mentions légales</a>
             <span>-</span>
-            <a href="#">Contact</a>
+            <a href="mailto:contact@orinoco.fr">Contact</a>
         </div>
         
     </footer>
 
     <script src="product.js"></script>
+    <script src="cart.js"></script>
 </body>
 </html>

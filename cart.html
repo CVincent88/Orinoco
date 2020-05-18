@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a61f28c43a.js" crossorigin="anonymous"></script>
 
     <title>Orinoco | Oricam - Vente d'appareil photo</title>
 </head>
@@ -16,8 +15,10 @@
 
     <section class="cart-wrapper">
         <h1>Mon panier</h1>
-        <table class="in-cart">
-            <tr class="in-cart_product">
+        <h2 id="empty-cart" class="empty-cart">Votre panier est vide</h2>
+        <a href="index.html" id="home">Retourner à la page d'accueil</a>
+        <table id="in-cart" class="in-cart"> 
+            <!-- <tr class="in-cart_product">
                 <td class="in-cart_product_img"></td>
                 <td class="in-cart_product_name">Asus 430</td>
                 <td class="in-cart_product_price">$399</td>
@@ -30,12 +31,12 @@
                 <td class="in-cart_product_delete">
                     <button>X</button>
                 </td>
-            </tr>
+            </tr> -->
             <tr class="total-cost">
-                <td colspan="5">Total: 100 patates</td>
+                <td colspan="5">Total: $ <span id="total-cost_number"></span></td>
             </tr>
         </table>
-        <div class="form">
+        <div id="form" class="form">
             <h2>Vos informations</h2>
             <form action="POST" method="#">
                 <div class="first-name-container">
@@ -56,7 +57,7 @@
                 </div>
                 <div class="email-container">
                     <label for="email">Email</label>
-                    <input type="text" id="email" class="email" required>
+                    <input type="email" id="email" class="email" required>
                 </div>
                 <input type="submit" value="Passer la commande" class="input">
             </form>
@@ -69,11 +70,12 @@
         <div class="link-box">
             <a href="#">Mentions légales</a>
             <span>-</span>
-            <a href="#">Contact</a>
+            <a href="mailto:contact@orinoco.fr">Contact</a>
         </div>
         
     </footer>
 
     <script src="product.js"></script>
+    <script src="cart.js"></script>
 </body>
 </html>

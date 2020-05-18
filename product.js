@@ -16,7 +16,7 @@ obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
     .then((cameras) => {
         for(i=0; i<cameras.length; i++){    // Parcours des données
             if(window.location.href.includes(cameras[i]._id)){ // Si l'url de la page chargée match un objet, alors:
-
+                
                 //Récupération du contenant
                 let container = document.getElementById('product-wrapper');
 
@@ -27,7 +27,6 @@ obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
                 img.setAttribute('src', `${cameras[i].imageUrl}`);
                 img.classList.add('product-container_img');
                 container.prepend(img);
-                console.log(cameras[i].imageUrl);
                 
                 // Personalisation du produit
                 let customizationWrapper = document.getElementById("customization-wrapper");
@@ -62,6 +61,17 @@ obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
                 // Prix produit
                 let price = document.getElementById('product-price');
                 price.textContent = `$ ${cameras[i].price / 100}`;
+            
+                // Ajout du produit dans le localStorage grâce au bouton
+                let idCam = cameras[i]._id;
+                let nomCam = cameras[i].name;
+                let addCart = document.getElementById('add-cart');
+
+                addCart.addEventListener('click', function(){
+                    localStorage.setItem(`${nomCam}`, `${idCam}`);
+                    alert('Le produit a bien été ajouté au panier');
+                    location.reload();
+                });
             }
         }
     });
