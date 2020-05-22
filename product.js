@@ -12,13 +12,13 @@ function obtenirData(url) {
 
 // *** Construction du product.html *** //
 // ------------------------------------ //
-obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
+obtenirData("http://localhost:3000/api/cameras/") // Appel de la promesse
     .then((cameras) => {
         for(i=0; i<cameras.length; i++){    // Parcours des données
             if(window.location.href.includes(cameras[i]._id)){ // Si l'url de la page chargée match un objet, alors:
                 
                 //Récupération du contenant
-                let container = document.getElementById('product-wrapper');
+                let productWrapper = document.getElementById('product-wrapper');
 
                 // Création + hiérarchisation des éléments dans le contenant
 
@@ -26,7 +26,7 @@ obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
                 let img = document.createElement('img');
                 img.setAttribute('src', `${cameras[i].imageUrl}`);
                 img.classList.add('product-container_img');
-                container.prepend(img);
+                productWrapper.prepend(img);
                 
                 // Personalisation du produit
                 let customizationWrapper = document.getElementById("customization-wrapper");

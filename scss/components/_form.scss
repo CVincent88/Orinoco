@@ -70,6 +70,11 @@
             color: white;
             padding: .2em;
         }
+        & a{
+            display: block;
+            grid-row: 4 / 5;
+            grid-column: 1 / 3;
+        }
     }
     
 }

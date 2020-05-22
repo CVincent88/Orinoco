@@ -1,0 +1,30 @@
+.confirmation-wrapper{
+    width: 85%;
+    margin: 30px auto;
+    background-color: $background-color-primary;
+    border-radius: 8px 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px $background-color-secondary-shadow;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    & h1{
+        font-size: 2em;
+    }
+    & a{
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        width: 230px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 10px 10px;
+        background-color: rgb(63, 63, 151);
+        font-family: sans-serif;
+        margin: 75px 0 0 0;
+    }
+    & #command-id{
+        font-size: 2em;
+    }
+}

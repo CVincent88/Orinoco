@@ -125,10 +125,13 @@ obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
         }else{ // Si le panier est vide
             
             let emptyCart = document.getElementById('empty-cart');
-            emptyCart.style.display = 'block';
+            if(emptyCart){ // Condition présente uniquement pour éxecuter le code uniquement sur la page panier.
+                emptyCart.style.display = 'block';
 
-            let home = document.getElementById('home');
-            home.style.display = 'block';
+                let page = document.getElementById('homepage');
+                homepage.style.display = 'block';
+            }
+            
         }
     });
         
@@ -137,7 +140,7 @@ obtenirData("http://localhost:3000/api/cameras") // Appel de la promesse
 let nombreEltPanier = cart.length;
 let notifications = document.getElementById('notifications');
 
-if(notifications){
+if(notifications){ // Condition présente uniquement pour ne pas éxecuter le code sur les pages où le bouton panier est présent
     if(nombreEltPanier > 0){
         notifications.style.display = 'inline-block';
         notifications.textContent = nombreEltPanier;
