@@ -10,6 +10,19 @@ function getData(url) {
     });
 }
 
+// *** Envoi de données *** //
+// -------------------------------- //
+function postData(url, object) {
+    return new Promise((resolve, reject) =>{
+        const myRequest = new XMLHttpRequest();
+        myRequest.open("POST", url + '/order');
+        myRequest.setRequestHeader("Content-Type", "application/json");
+        myRequest.onload = () => resolve(JSON.parse(myRequest.responseText))
+        myRequest.onerror = () => reject(JSON.parse(myRequest.statusText));
+        myRequest.send(JSON.stringify(object));
+    });
+}
+
 // *** Constructeur pour l'affichage de index.html et page produit *** //
 // ------------------------------------------------------------------- //
 function Product(name, lenses, id, price, description, imageUrl){
@@ -319,4 +332,66 @@ function cartNotifications(){
             notifications.style.opacity = '0';
         }
     }
+}
+
+// *** Fonction de validation des inputs utilisateur *** //
+// ----------------------------------------------------- //
+function validateInputs(firstName, lastName, address, city, email, validInputs, clientOrder){
+    let firstNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
+    let lastNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
+    let addressRegex = /^[0-9a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ',]+$/;
+    let cityRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
+    let emailRegex = /^[a-zA-Z0-9.-]+@([a-zA-Z0-]{2,10})+(\.[a-zA-Z]{2,3})+((\.[a-zA-Z]{2,3})?)+$/;
+    
+
+    function isValid(regex, input) {
+        return regex.test(input.target.value);
+    }
+
+    firstName.addEventListener('change', (e) =>{
+        if(isValid(firstNameRegex, e)){
+            clientOrder.contact.firstName = e.target.value;
+            validInputs = true;
+        }else{
+            validInputs = false;
+        }
+    });
+    
+    lastName.addEventListener('change', (e) =>{
+        if(isValid(lastNameRegex, e)){
+            clientOrder.contact.lastName = e.target.value;
+            validInputs = true;
+        }else{
+            validInputs = false;
+        }
+    });
+    
+    address.addEventListener('change', (e) =>{
+        if(isValid(addressRegex, e)){
+            clientOrder.contact.address = e.target.value;
+            validInputs = true;
+        }else{
+            validInputs = false;
+
+        }
+    });
+    
+    city.addEventListener('change', (e) =>{
+        if(isValid(cityRegex, e)){
+            clientOrder.contact.city = e.target.value;
+            validInputs = true;
+        }else{
+            validInputs = false;
+
+        }
+    });
+    
+    email.addEventListener('change', (e) =>{
+        if(isValid(emailRegex, e)){
+            clientOrder.contact.email = e.target.value;
+            validInputs = true;
+        }else{
+            validInputs = false;
+        }
+    });
 }

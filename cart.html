@@ -42,25 +42,25 @@
             <form action="POST" method="#">
                 <div class="first-name-container">
                     <label for="first-name">Prénom</label>
-                    <input type="text" id="first-name" class="first-name" required>
+                    <input type="text" id="first-name" class="first-name input-client" maxlength="40" required>
                 </div>
                 <div class="last-name-container">
                     <label for="last-name">Nom</label>
-                    <input type="text" id="last-name" class="last-name" required>
+                    <input type="text" id="last-name" class="last-name input-client" maxlength="40" required>
                 </div>
                 <div class="address-container">
                     <label for="address">Adresse</label>
-                    <input type="text" id="address" class="address" required>
+                    <input type="text" id="address" class="address input-client" maxlength="200" required>
                 </div>
                 <div class="city-container">
                     <label for="city">Ville</label>
-                    <input type="text" id="city" class="city" required>
+                    <input type="text" id="city" class="city input-client" maxlength="40" required>
                 </div>
                 <div class="email-container">
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="email" pattern="" required>
+                    <input type="email" id="email" class="email input-client" maxlength="150" required>
                 </div>
-                <a href="confirmation.html" id="submit-order">Passer la commande</a>
+                <button id="submit-order">Passer la commande</button>
             </form>
         </div>
         

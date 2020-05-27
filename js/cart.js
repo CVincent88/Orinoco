@@ -31,17 +31,17 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
         totalCartPrice += itemsInCart[i].totalPrice(itemsInCart[i].quantity, itemsInCart[i].price);
         
         console.log(totalCartPrice);
-
     }
 
     // Affichage prix total
     let totalCartPriceDisplay = document.getElementById('total-cost_number');
     totalCartPriceDisplay.innerText = totalCartPrice;
 
+    localStorage.setItem('totalPrice', `${totalCartPrice}`);
+
     // Afficher le formulaire
     let form = document.getElementById('form');
     form.style.display = 'block';
-
 
 }else{ // Si le panier est vide, on propose le retour au menu principal
             

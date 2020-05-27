@@ -1,6 +1,6 @@
 // Récupération de l'Id produit
 let regex = /id=(.*)/g;
-let url = window.location.href.match(regex)
+let url = window.location.href.match(regex);
 let idProduct = url[0].substring(3);
 
 // Attribution d'une quantité
@@ -14,7 +14,7 @@ getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promess
         let articleSelected = new Product(article.name, article.lenses, article._id, article.price, article.description, article.imageUrl);
 
         articleSelected.image();
-        articleSelected.customizeProduct(article)
+        articleSelected.customizeProduct(article);
         articleSelected.productName();
         articleSelected.productDescription();
         articleSelected.productPrice();
@@ -33,3 +33,19 @@ getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promess
             
         });   
     });
+
+
+
+
+
+
+    // let cart = {};
+
+    // let itemtest = new Product('test', 'id:4')
+
+    // cart[itemtest.id] = itemtest
+
+    // Object.keys(cart)
+
+
+
