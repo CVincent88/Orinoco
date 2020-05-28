@@ -205,7 +205,8 @@ function CartProduct(name, id, price, imageUrl, quantity){
         cartRow.appendChild(productPrice);
     }
 
-    this.tableProductQuantity = function(cartRow, quantity, item){
+    this.tableProductQuantity = function(cartRow){
+
         // Case tableau quantité
         let quantityTD = document.createElement('td');
         quantityTD.classList.add('in-cart_product_quantity');
@@ -220,36 +221,54 @@ function CartProduct(name, id, price, imageUrl, quantity){
         // Bouton ajout de produit
         let addProduct = document.createElement('button');
         addProduct.classList.add('add-product');
+        addProduct.setAttribute('data-id', this.id)
         addProduct.textContent = '+'
         quantityTD.appendChild(addProduct);
 
         // Bouton retrait de produit
         let substractProduct = document.createElement('button');
-        substractProduct.classList.add('add-product');
+        substractProduct.classList.add('substract-product');
+        substractProduct.setAttribute('data-id', this.id)
         substractProduct.textContent = '-'
         quantityTD.appendChild(substractProduct);
 
-        // // Ajout produit au clic sur le bouton
-        // addProduct.addEventListener('click', function(){
-        //     if(quantity < 15 && quantity > 0){
-        //         quantity ++;
-        //         localStorage.setItem(localStorage.length + 1, JSON.stringify(item));
-        //         quantityNumber.textContent = `Quantité: ${quantity}`;
-        //     }else{
-        //         alert('Si vous souhaitez commander un tel nombre d\'appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.');
-        //     }
-        // })
+        // Ajout produit au clic sur le bouton
+        addProduct.addEventListener('click', function(){
+            let dataId = addProduct.getAttribute('data-id');
+            console.log(dataId);
 
-        // Soustraction produit au clic sur le bouton
-        substractProduct.addEventListener('click', function(){
-            if(quantity > 0){
-                quantity --;
-                quantityNumber.textContent = `Quantité: ${quantity}`;
+            if(itemsInCart[dataId].quantity < 15 && itemsInCart[dataId].quantity >= 0){
+
+                itemsInCart[dataId].quantity ++;
+                localStorage.setItem('cart', JSON.stringify(itemsInCart));
+
+                quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+
             }else{
-                // Supprime l'élément
+                alert('Si vous souhaitez commander un tel nombre d\'appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.');
             }
-            
-        })
+        });
+
+        // Retrqit produit au clic sur le bouton
+        substractProduct.addEventListener('click', function(){
+            let dataId = substractProduct.getAttribute('data-id');
+            console.log(dataId);
+
+            if(itemsInCart[dataId].quantity > 0){
+
+                itemsInCart[dataId].quantity --;
+                if(itemsInCart[dataId].quantity === 0){
+                    delete itemsInCart.itemsInCart[dataId];
+                }
+                localStorage.setItem('cart', JSON.stringify(itemsInCart));
+                
+                quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+                
+            }else{
+            }
+        });
+
+
     }
 
     this.tableDeleteProduct = function(cartRow, array, item){
@@ -275,8 +294,8 @@ function CartProduct(name, id, price, imageUrl, quantity){
 
 }
 
-// *** Fonction d'ajout des éléments dans le panier *** //
-// ---------------------------------------------------- //
+// *** Fonction d'ajout des éléments dans le panier depuis la page produit*** //
+// -------------------------------------------------------------------------- //
 function addToCart(cart, articleSelected){
     if (localStorage.length === 0){
         cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};

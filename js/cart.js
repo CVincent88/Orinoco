@@ -1,11 +1,11 @@
 // Création de la variable pour le coût total du panier
 let totalCartPrice = 0;
+// Récupération des éléments dans le panier et des Ids
 itemsInCart = JSON.parse(localStorage.getItem('cart'));
-let itemsId = Object.keys(itemsInCart) 
+let itemsId = Object.keys(itemsInCart)
 
-if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorage, on afiche le contenu et le formulaire.
 
-          
+if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorage, on afiche le contenu du panier et le formulaire.
     
     for(i=0; i<itemsId.length; i++){
         let cartRow = document.createElement('tr');
@@ -17,11 +17,12 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
         newItemInCart.tableProductImg(cartRow);
         newItemInCart.tableProductName(cartRow);
         newItemInCart.tableProductPrice(cartRow);
-        newItemInCart.tableProductQuantity(cartRow, newItemInCart.quantity, newItemInCart);
-        newItemInCart.tableDeleteProduct(cartRow, newItemInCart, newItemInCart);
+        newItemInCart.tableProductQuantity(cartRow);
+        newItemInCart.tableDeleteProduct(cartRow);
 
         totalCartPrice += newItemInCart.totalPrice(newItemInCart.quantity, newItemInCart.price);
-    }
+
+    }   
 
     // Affichage prix total
     let totalCartPriceDisplay = document.getElementById('total-cost_number');
