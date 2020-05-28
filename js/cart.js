@@ -1,36 +1,26 @@
 // Création de la variable pour le coût total du panier
 let totalCartPrice = 0;
-let itemsInCart = [];
+itemsInCart = JSON.parse(localStorage.getItem('cart'));
+let itemsId = Object.keys(itemsInCart) 
 
 if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorage, on afiche le contenu et le formulaire.
 
-    // Boucle sur le nombre d'élément dans localStorage
-    for(i=0; i<localStorage.length; i++){
-        
-        // Récupéraion d'un élément dans le localStorage
-        let elementInLocalStorage = JSON.parse(window.localStorage.getItem(i + 1));
-
-        // Si l'élément n'est pas au panier, on l'y ajoute; s'il y est déjà, on incrémente la quantité.
-        addToCart(itemsInCart, elementInLocalStorage);
-    }        
+          
     
-    for(i=0; i<itemsInCart.length; i++){
+    for(i=0; i<itemsId.length; i++){
         let cartRow = document.createElement('tr');
+        let newItemInCart = itemsInCart[itemsId[i]]
 
-        itemsInCart[i] = new CartProduct(itemsInCart[i].name, itemsInCart[i].lenses, itemsInCart[i].id, itemsInCart[i].price, itemsInCart[i].description, itemsInCart[i].imageUrl, itemsInCart[i].quantity);
+        newItemInCart = new CartProduct(newItemInCart.name, newItemInCart.id, newItemInCart.price, newItemInCart.imageUrl, newItemInCart.quantity);
 
-        itemsInCart[i].tableRow(cartRow);
-        itemsInCart[i].tableProductImg(cartRow);
-        itemsInCart[i].tableProductName(cartRow);
-        itemsInCart[i].tableProductPrice(cartRow);
-        itemsInCart[i].tableProductQuantity(cartRow, itemsInCart[i].quantity, itemsInCart[i]);
-        itemsInCart[i].tableDeleteProduct(cartRow, itemsInCart, itemsInCart[i]);
+        newItemInCart.tableRow(cartRow);
+        newItemInCart.tableProductImg(cartRow);
+        newItemInCart.tableProductName(cartRow);
+        newItemInCart.tableProductPrice(cartRow);
+        newItemInCart.tableProductQuantity(cartRow, newItemInCart.quantity, newItemInCart);
+        newItemInCart.tableDeleteProduct(cartRow, newItemInCart, newItemInCart);
 
-        console.log(totalCartPrice);
-
-        totalCartPrice += itemsInCart[i].totalPrice(itemsInCart[i].quantity, itemsInCart[i].price);
-        
-        console.log(totalCartPrice);
+        totalCartPrice += newItemInCart.totalPrice(newItemInCart.quantity, newItemInCart.price);
     }
 
     // Affichage prix total

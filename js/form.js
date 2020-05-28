@@ -1,6 +1,6 @@
 let clientOrder = {
     contact: {},
-    products: itemsInCart.map(array => array.id)
+    products: itemsId
 };
 let validInputs = new Boolean
 let orderConfirmation = new Object;
@@ -25,8 +25,11 @@ validateInputs(firstName, lastName, address, city, email, validInputs, clientOrd
 //     button.style.pointerEvents = 'auto';
 // }
 submitOrder.addEventListener('click', (e) =>{
+
     postData("http://localhost:3000/api/cameras", clientOrder)
-        .then((value) =>{
+        .then((value) =>{ 
+            
+            console.log(value);
 
             function confirmOrder(firstName, orderId){
                 localStorage.setItem('name', `${firstName}`);
@@ -36,12 +39,10 @@ submitOrder.addEventListener('click', (e) =>{
 
             confirmOrder(value.contact.firstName, value.orderId);
             
-            
             setTimeout(() =>{
                 window.location.href = "confirmation.html";
-            }, 1000);
+            }, 500);
             
-
         })
         .catch((error) =>{
             console.log(error);

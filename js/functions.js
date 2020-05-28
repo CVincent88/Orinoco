@@ -12,14 +12,14 @@ function getData(url) {
 
 // *** Envoi de données *** //
 // -------------------------------- //
-function postData(url, object) {
+function postData(url, objectToPost) {
     return new Promise((resolve, reject) =>{
         const myRequest = new XMLHttpRequest();
         myRequest.open("POST", url + '/order');
         myRequest.setRequestHeader("Content-Type", "application/json");
         myRequest.onload = () => resolve(JSON.parse(myRequest.responseText))
         myRequest.onerror = () => reject(JSON.parse(myRequest.statusText));
-        myRequest.send(JSON.stringify(object));
+        myRequest.send(JSON.stringify(objectToPost));
     });
 }
 
@@ -160,12 +160,10 @@ function Product(name, lenses, id, price, description, imageUrl){
 
 // *** constructeur pour l'affichage du panier *** //
 // ----------------------------------------------- //
-function CartProduct(name, lenses, id, price, description, imageUrl, quantity){
+function CartProduct(name, id, price, imageUrl, quantity){
     this.name = name;
-    this.lenses = lenses;
     this.id = id;
     this.price = price;
-    this.description = description;
     this.imageUrl = imageUrl;
     this.quantity = quantity;
 
@@ -230,18 +228,17 @@ function CartProduct(name, lenses, id, price, description, imageUrl, quantity){
         substractProduct.classList.add('add-product');
         substractProduct.textContent = '-'
         quantityTD.appendChild(substractProduct);
-        console.log(this.name + ' ' + quantity);
 
-        // Ajout produit au clic sur le bouton
-        addProduct.addEventListener('click', function(){
-            if(quantity < 15 && quantity > 0){
-                quantity ++;
-                localStorage.setItem(localStorage.length + 1, JSON.stringify(item));
-                quantityNumber.textContent = `Quantité: ${quantity}`;
-            }else{
-                alert('Si vous souhaitez commander un tel nombre d\'appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.');
-            }
-        })
+        // // Ajout produit au clic sur le bouton
+        // addProduct.addEventListener('click', function(){
+        //     if(quantity < 15 && quantity > 0){
+        //         quantity ++;
+        //         localStorage.setItem(localStorage.length + 1, JSON.stringify(item));
+        //         quantityNumber.textContent = `Quantité: ${quantity}`;
+        //     }else{
+        //         alert('Si vous souhaitez commander un tel nombre d\'appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.');
+        //     }
+        // })
 
         // Soustraction produit au clic sur le bouton
         substractProduct.addEventListener('click', function(){
@@ -280,47 +277,30 @@ function CartProduct(name, lenses, id, price, description, imageUrl, quantity){
 
 // *** Fonction d'ajout des éléments dans le panier *** //
 // ---------------------------------------------------- //
-function addToCart(itemsInCart, elementInLocalStorage){
-    // Si le panier est vide, on ajoute le premier élément et on lui ajoute une propriété quantité
-    if(itemsInCart.length === 0){ 
-        itemsInCart.push(elementInLocalStorage)
-        itemsInCart[0].quantity = 1;
-
-    // Si il y a déjà au ,oins un article dans le panier:
-    }else if(itemsInCart.length > 0){
-
-        // On récupère les Id des articles déjà dans le panier dans un tableau
-        let itemsInCartIds = itemsInCart.map(array => array.id)
-
-        // Si l'Id de l'article à ajouter se trouve dans le tableau
-        if(itemsInCartIds.includes(elementInLocalStorage.id)){
-
-            // On boucle dans le tableau pour ajouter 1 à la quantité
-            for(j=0; j<itemsInCart.length; j++){
-                if(itemsInCart[j].id === elementInLocalStorage.id){
-                    if(!itemsInCart[j].quantity){
-                        itemsInCart[j].quantity = 1;
-                    }else{
-                        itemsInCart[j].quantity ++;
-                    }
-                }
-            }
-        // Si l'Id de l'article à ajouter ne se trouve pas dans le tableau, on ajoute l'article au panier et on lui ajoute une propriété quantité
-        }else{
-            let indexToPush = itemsInCart.length;
-            itemsInCart.push(elementInLocalStorage);
-            itemsInCart[indexToPush].quantity = 1;
-
-        }
+function addToCart(cart, articleSelected){
+    if (localStorage.length === 0){
+        cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
+        localStorage.setItem('cart', JSON.stringify(cart));
     }else{
-        console.log('Erreur dans la fonction d\'ajout au panier');
+        cart = JSON.parse(localStorage.getItem('cart'));
+        const cartEntries = Object.keys(cart)
+        
+        if(cartEntries.includes(articleSelected.id)){
+            cart[articleSelected.id].quantity ++;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }else{
+            cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }  
     }
+
+    alert('Le produit a bien été ajouté au panier');
 }
 
 // *** Affichage de la notification pour le nombre d'éléments dans le panier *** //
 // ----------------------------------------------------------------------------- //
 function cartNotifications(){
-    let cart = localStorage;
+    cart = JSON.parse(localStorage.getItem('cart'));
     let numberEltCart = cart.length;
     let notifications = document.getElementById('notifications');
 
@@ -337,16 +317,20 @@ function cartNotifications(){
 // *** Fonction de validation des inputs utilisateur *** //
 // ----------------------------------------------------- //
 function validateInputs(firstName, lastName, address, city, email, validInputs, clientOrder){
+    
+    //Définition des différentes Regex utilisées
     let firstNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
     let lastNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
     let addressRegex = /^[0-9a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ',]+$/;
     let cityRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
     let emailRegex = /^[a-zA-Z0-9.-]+@([a-zA-Z0-]{2,10})+(\.[a-zA-Z]{2,3})+((\.[a-zA-Z]{2,3})?)+$/;
     
-
+    // Fonction de validation de la Regex. Renvoie true si le texte match la Regex
     function isValid(regex, input) {
         return regex.test(input.target.value);
     }
+
+    // Test de chaque input selon la Regex définie
 
     firstName.addEventListener('change', (e) =>{
         if(isValid(firstNameRegex, e)){

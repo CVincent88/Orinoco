@@ -6,6 +6,8 @@ let idProduct = url[0].substring(3);
 // Attribution d'une quantité
 let productQuantity = 0;
 
+let cart = {};
+
 // *** Construction du product.html *** //
 // ------------------------------------ //
 getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promesse
@@ -19,18 +21,18 @@ getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promess
         articleSelected.productDescription();
         articleSelected.productPrice();
 
-        cartNotifications();
+        // cartNotifications();          
 
         // Ajout du produit dans le panier (localStorage) grâce au bouton
         let addCart = document.getElementById('add-cart');
 
         addCart.addEventListener('click', function(){
 
-            localStorage.setItem(localStorage.length + 1, JSON.stringify(articleSelected));
-            alert('Le produit a bien été ajouté au panier');
-            // Appel de la fonction de notification pour mettre à jour la pastille
-            cartNotifications();
+            addToCart(cart, articleSelected);
+
             
+            // Appel de la fonction de notification pour mettre à jour la pastille
+            // cartNotifications();          
         });   
     });
 
@@ -39,13 +41,6 @@ getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promess
 
 
 
-    // let cart = {};
-
-    // let itemtest = new Product('test', 'id:4')
-
-    // cart[itemtest.id] = itemtest
-
-    // Object.keys(cart)
 
 
 
