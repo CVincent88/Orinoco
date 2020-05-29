@@ -68,9 +68,6 @@
                     display: flex;
                     flex-flow: column nowrap;
                 }
-                &_number{
-                    // flex-grow: 1;
-                }
                 & .add-product{
                     background-color: $background-color-primary;
                     border: none;

@@ -251,11 +251,13 @@ function CartProduct(name, id, price, imageUrl, quantity){
         // Ajout produit au clic sur le bouton
         addProduct.addEventListener('click', function(){
             let dataId = addProduct.getAttribute('data-id');
-            console.log(dataId);
+            let notifNumber = localStorage.getItem('notificationNumber');
 
             if(itemsInCart[dataId].quantity < 15 && itemsInCart[dataId].quantity >= 0){
 
                 itemsInCart[dataId].quantity ++;
+                notifNumber ++;
+                localStorage.setItem('notificationNumber', notifNumber);
                 localStorage.setItem('cart', JSON.stringify(itemsInCart));
 
                 quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
@@ -269,20 +271,42 @@ function CartProduct(name, id, price, imageUrl, quantity){
         // Retrqit produit au clic sur le bouton
         substractProduct.addEventListener('click', function(){
             let dataId = substractProduct.getAttribute('data-id');
-            console.log(dataId);
+            let notifNumber = localStorage.getItem('notificationNumber');
 
                 itemsInCart[dataId].quantity --;
-                localStorage.setItem('cart', JSON.stringify(itemsInCart));
+                notifNumber --;
 
-                quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
-                window.location.reload();
+                if(itemsInCart[dataId].quantity === 0){
+                     // Suppression de l'article dans le panier
+                    delete itemsInCart[dataId];
+
+                    // Si le panier est vide, on nettoie le LocalStorage pour ne plus afficher la notification ou le formulaire
+                    if(notifNumber === 0){
+                        localStorage.clear();
+
+                    // Sinon, on renvoie le reste des élément dans le panier pour l'actualisation de la page.
+                    }else{
+                        localStorage.setItem('notificationNumber', notifNumber);
+                        localStorage.setItem('cart', JSON.stringify(itemsInCart));  
+                    }  
+                    window.location.reload();
+                }
+
+                if(notifNumber != 0){
+                    localStorage.setItem('notificationNumber', notifNumber)
+                    localStorage.setItem('cart', JSON.stringify(itemsInCart));
+    
+                    quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+                    window.location.reload();
+                }
+                
 
         });
 
 
     }
 
-    this.tableDeleteProduct = function(cartRow, itemsInCart, itemId){
+    this.tableDeleteProduct = function(cartRow, itemId){
         // Bouton supprimer produit
         let deleteProductTD = document.createElement('td');
         deleteProductTD.classList.add('inCart-table_product_delete');

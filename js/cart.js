@@ -19,7 +19,7 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
         newItemInCart.tableProductName(cartRow);
         newItemInCart.tableProductPrice(cartRow);
         newItemInCart.tableProductQuantity(cartRow);
-        newItemInCart.tableDeleteProduct(cartRow, itemsInCart, newItemInCart.id);
+        newItemInCart.tableDeleteProduct(cartRow, newItemInCart.id);
 
         totalCartPrice += newItemInCart.totalPrice(newItemInCart.quantity, newItemInCart.price);
 
