@@ -6,7 +6,7 @@ if(itemsInCart != null){
         products: itemsId
     
     };
-    let validInputs = new Boolean
+    let validInputs = false
     
     let submitOrder = document.getElementById('submit-order');
     let firstName = document.getElementById('first-name');
@@ -16,6 +16,7 @@ if(itemsInCart != null){
     let email = document.getElementById('email');
     
     validateInputs(firstName, lastName, address, city, email, validInputs, clientOrder);
+    
     
     // if(validInputs == false){
     //     let button = document.getElementById('submit-order');

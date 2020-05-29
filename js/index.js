@@ -13,7 +13,7 @@ getData("http://localhost:3000/api/cameras/")
             newArticle.productDescription();
             newArticle.productPrice();
         }
-        // cartNotifications();
+        cartNotifications();
     })
     .catch((error) => {
         console.log(error);

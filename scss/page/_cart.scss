@@ -46,10 +46,8 @@
                 border: 1px solid rgba(0, 0, 0, .15);
             }
             &_img{
-                display: flex;
-                align-items: center;
+                margin: auto;
                 & img{
-                    margin: auto;
                     max-width: 100px;
                     max-height: 100px;
                 }
@@ -59,8 +57,22 @@
             }
             &_quantity{
                 text-align: center;
-                & input:focus{
-                    outline: none;
+                line-height: 75px;
+                & .button-box{
+                    float: right;
+                    display: flex;
+                    flex-flow: column nowrap;
+                }
+                &_number{
+                    flex-grow: 1;
+                }
+                & .add-product{
+                    border-radius: 50%;
+                    margin: 5px;
+                }
+                & .substract-product{
+                    border-radius: 50%;
+                    margin:5px;
                 }
             }
             &_delete{

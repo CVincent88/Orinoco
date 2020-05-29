@@ -1,7 +1,20 @@
+@keyframes notification-bounce{
+    0%{
+        transform: scale(1);
+    }
+    90%{
+        transform: scale(2);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
 .notification-panel{
     width: 200px;
     position: fixed; top: 20vh; left: 100vw - 20vw;
     text-decoration: none;
+    
     & .notification{
         height: 20px;
         width: 20px;
@@ -13,12 +26,17 @@
         opacity: 0;
         z-index: 99;
         text-align: center;
+        transform: scaleY(1);
+        animation: notification-bounce 1000ms;
+        animation-play-state: paused;  
+        
     }
     .my-cart-large-container{
         width: 200px;
         overflow: hidden;
         border: 0;
         border-radius: 50px 50px ;
+        
         & .my-cart-container{
             width: 200px;
             display: flex;

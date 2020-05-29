@@ -218,19 +218,25 @@ function CartProduct(name, id, price, imageUrl, quantity){
         quantityNumber.textContent = `Quantité: ${this.quantity}`;
         quantityTD.appendChild(quantityNumber);
 
+        let buttonBox = document.createElement('div');
+        buttonBox.classList.add('button-box');
+        quantityTD.appendChild(buttonBox);
+
         // Bouton ajout de produit
         let addProduct = document.createElement('button');
         addProduct.classList.add('add-product');
         addProduct.setAttribute('data-id', this.id)
         addProduct.textContent = '+'
-        quantityTD.appendChild(addProduct);
+        buttonBox.appendChild(addProduct);
 
         // Bouton retrait de produit
         let substractProduct = document.createElement('button');
         substractProduct.classList.add('substract-product');
         substractProduct.setAttribute('data-id', this.id)
         substractProduct.textContent = '-'
-        quantityTD.appendChild(substractProduct);
+        buttonBox.appendChild(substractProduct);
+
+
 
         // Ajout produit au clic sur le bouton
         addProduct.addEventListener('click', function(){
@@ -254,18 +260,10 @@ function CartProduct(name, id, price, imageUrl, quantity){
             let dataId = substractProduct.getAttribute('data-id');
             console.log(dataId);
 
-            if(itemsInCart[dataId].quantity > 0){
-
                 itemsInCart[dataId].quantity --;
-                if(itemsInCart[dataId].quantity === 0){
-                    delete itemsInCart.itemsInCart[dataId];
-                }
                 localStorage.setItem('cart', JSON.stringify(itemsInCart));
-                
+
                 quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
-                
-            }else{
-            }
         });
 
 
@@ -300,33 +298,42 @@ function addToCart(cart, articleSelected){
     if (localStorage.length === 0){
         cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
         localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('notificationNumber', 1)
     }else{
         cart = JSON.parse(localStorage.getItem('cart'));
         const cartEntries = Object.keys(cart)
-        
+        let notificationNumber = localStorage.getItem('notificationNumber');
+
         if(cartEntries.includes(articleSelected.id)){
             cart[articleSelected.id].quantity ++;
+            notificationNumber ++;
             localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('notificationNumber', notificationNumber);
+
         }else{
             cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
+            notificationNumber ++;
+            
             localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('notificationNumber', notificationNumber);
         }  
     }
-
-    alert('Le produit a bien été ajouté au panier');
 }
 
 // *** Affichage de la notification pour le nombre d'éléments dans le panier *** //
 // ----------------------------------------------------------------------------- //
 function cartNotifications(){
-    cart = JSON.parse(localStorage.getItem('cart'));
-    let numberEltCart = cart.length;
+    
     let notifications = document.getElementById('notifications');
+    
+    let notificationNumber = 0;
 
     if(notifications){ // Condition pour éxecuter le code uniquement sur les pages où le bouton panier est présent
-        if(numberEltCart > 0){
+        if(localStorage.length > 0){
+            notificationNumber = localStorage.getItem('notificationNumber');
+
             notifications.style.opacity = '1';
-            notifications.textContent = numberEltCart;
+            notifications.textContent = notificationNumber;
         }else{
             notifications.style.opacity = '0';
         }
@@ -397,4 +404,5 @@ function validateInputs(firstName, lastName, address, city, email, validInputs, 
             validInputs = false;
         }
     });
+
 }

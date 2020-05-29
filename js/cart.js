@@ -1,12 +1,13 @@
 // Création de la variable pour le coût total du panier
 let totalCartPrice = 0;
-// Récupération des éléments dans le panier et des Ids
+// Récupération des éléments dans le panier
 itemsInCart = JSON.parse(localStorage.getItem('cart'));
-let itemsId = Object.keys(itemsInCart)
 
 
 if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorage, on afiche le contenu du panier et le formulaire.
-    
+    // Stockage dans un tableau des Ids articles présent dans le panier
+    let itemsId = Object.keys(itemsInCart)
+
     for(i=0; i<itemsId.length; i++){
         let cartRow = document.createElement('tr');
         let newItemInCart = itemsInCart[itemsId[i]]
