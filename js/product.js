@@ -21,6 +21,7 @@ getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promess
         articleSelected.productName();
         articleSelected.productDescription();
         articleSelected.productPrice();
+        articleSelected.homePage();
         
         // Garde la notification active lorsqu'on arrive sur la page produit
         cartNotifications();

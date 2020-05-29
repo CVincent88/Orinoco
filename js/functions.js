@@ -156,6 +156,16 @@ function Product(name, lenses, id, price, description, imageUrl){
         }
     }
 
+    this.homePage = function(){
+        
+        let homePageButton = document.createElement('a');
+        homePageButton.classList.add('homePage-button');
+        homePageButton.setAttribute('href', 'index.html');
+        homePageButton.textContent = '←'
+        productWrapper.appendChild(homePageButton);
+
+    }
+
 }
 
 // *** constructeur pour l'affichage du panier *** //
@@ -170,18 +180,18 @@ function CartProduct(name, id, price, imageUrl, quantity){
 
     this.tableRow = function(cartRow){
         // Récupération et affichage du tableau
-        const cartTable = document.getElementById('in-cart')
+        const cartTable = document.getElementById('inCart-table')
         cartTable.style.display = 'table';
 
         // Création ligne de tableau pour produit dans le panier
-        cartRow.classList.add('in-cart_product');
+        cartRow.classList.add('inCart-table_product');
         cartTable.prepend(cartRow);
     }
 
     this.tableProductImg = function(cartRow){
         // Case + Image produit
         let imgTD = document.createElement('td');
-        imgTD.classList.add('in-cart_product_img');
+        imgTD.classList.add('inCart-table_product_img');
         cartRow.appendChild(imgTD);
         
         let img = document.createElement('img');
@@ -192,7 +202,7 @@ function CartProduct(name, id, price, imageUrl, quantity){
     this.tableProductName = function(cartRow){
         // Nom produit
         let productName = document.createElement('td');
-        productName.classList.add('in-cart_product_name');
+        productName.classList.add('inCart-table_product_name');
         productName.innerText = this.name;
         cartRow.appendChild(productName);
     }
@@ -200,7 +210,7 @@ function CartProduct(name, id, price, imageUrl, quantity){
     this.tableProductPrice = function(cartRow){
         // Prix produit
         let productPrice = document.createElement('td');
-        productPrice.classList.add('in-cart_product_price');
+        productPrice.classList.add('inCart-table_product_price');
         productPrice.innerText = `$ ${this.price / 100}`;
         cartRow.appendChild(productPrice);
     }
@@ -209,12 +219,12 @@ function CartProduct(name, id, price, imageUrl, quantity){
 
         // Case tableau quantité
         let quantityTD = document.createElement('td');
-        quantityTD.classList.add('in-cart_product_quantity');
+        quantityTD.classList.add('inCart-table_product_quantity');
         cartRow.appendChild(quantityTD);
 
         // Quantité actuelle
         let quantityNumber = document.createElement('span');
-        quantityNumber.classList.add('in-cart_product_quantity_number');
+        quantityNumber.classList.add('inCart-table_product_quantity_number');
         quantityNumber.textContent = `Quantité: ${this.quantity}`;
         quantityTD.appendChild(quantityNumber);
 
@@ -249,6 +259,7 @@ function CartProduct(name, id, price, imageUrl, quantity){
                 localStorage.setItem('cart', JSON.stringify(itemsInCart));
 
                 quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+                window.location.reload();
 
             }else{
                 alert('Si vous souhaitez commander un tel nombre d\'appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.');
@@ -264,15 +275,17 @@ function CartProduct(name, id, price, imageUrl, quantity){
                 localStorage.setItem('cart', JSON.stringify(itemsInCart));
 
                 quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+                window.location.reload();
+
         });
 
 
     }
 
-    this.tableDeleteProduct = function(cartRow, array, item){
+    this.tableDeleteProduct = function(cartRow, itemsInCart, itemId){
         // Bouton supprimer produit
         let deleteProductTD = document.createElement('td');
-        deleteProductTD.classList.add('in-cart_product_delete');
+        deleteProductTD.classList.add('inCart-table_product_delete');
         cartRow.appendChild(deleteProductTD);
 
         let deleteButton = document.createElement('button');
@@ -280,9 +293,28 @@ function CartProduct(name, id, price, imageUrl, quantity){
         deleteButton.textContent = 'X';
         deleteProductTD.appendChild(deleteButton);
 
+        // Evènement permettant de supprimer un produit du panier
         deleteButton.addEventListener('click', function(){
-            delete array[item];
-            window.location.reload(); // ça marche pô !!!
+            // On récupère le contenu du panier et le LocalStorage
+            let numberOfProduct = itemsInCart[itemId].quantity;
+            let notifNumber = localStorage.getItem('notificationNumber');
+
+            // Suppression de l'article dans le panier
+            delete itemsInCart[itemId];
+
+            // Modifications de la notification
+            notifNumber -= numberOfProduct;
+
+            // Si le panier est vide, on nettoie le LocalStorage pour ne plus afficher la notification
+            if(notifNumber === 0){
+                localStorage.clear();
+
+            // Sinon, on renvoie le reste des élément dans le panier pour l'actualisation de la page.
+            }else{
+                localStorage.setItem('notificationNumber', notifNumber);
+                localStorage.setItem('cart', JSON.stringify(itemsInCart));  
+            }  
+            window.location.reload(); 
         });
     }
 
@@ -340,9 +372,27 @@ function cartNotifications(){
     }
 }
 
+// *** Fonction d'affichage du bouton si tous les inputs sont remplis correctement *** //
+// ----------------------------------------------------------------------------------- //
+function displayButton(clientOrder){
+    if(Object.keys(clientOrder.contact).length != 5){
+        let button = document.getElementById('submit-order');
+        button.style.backgroundColor = '#68687A';
+        button.style.color = '#000000';
+        button.style.pointerEvents = 'none';
+    }else{
+        console.log('all is good');
+        let button = document.getElementById('submit-order');
+        button.style.backgroundColor = '#6f44c4';
+        button.style.color = '#FFFFFF';
+        button.style.pointerEvents = 'auto';
+        button.style.cursor = 'pointer';
+    }
+}
+
 // *** Fonction de validation des inputs utilisateur *** //
 // ----------------------------------------------------- //
-function validateInputs(firstName, lastName, address, city, email, validInputs, clientOrder){
+function validateInputs(firstName, lastName, address, city, email, clientOrder){
     
     //Définition des différentes Regex utilisées
     let firstNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ ']+$/;
@@ -361,48 +411,36 @@ function validateInputs(firstName, lastName, address, city, email, validInputs, 
     firstName.addEventListener('change', (e) =>{
         if(isValid(firstNameRegex, e)){
             clientOrder.contact.firstName = e.target.value;
-            validInputs = true;
-        }else{
-            validInputs = false;
+            displayButton(clientOrder);
         }
     });
     
     lastName.addEventListener('change', (e) =>{
         if(isValid(lastNameRegex, e)){
             clientOrder.contact.lastName = e.target.value;
-            validInputs = true;
-        }else{
-            validInputs = false;
+            displayButton(clientOrder);
         }
     });
     
     address.addEventListener('change', (e) =>{
         if(isValid(addressRegex, e)){
             clientOrder.contact.address = e.target.value;
-            validInputs = true;
-        }else{
-            validInputs = false;
-
+            displayButton(clientOrder);
         }
     });
     
     city.addEventListener('change', (e) =>{
         if(isValid(cityRegex, e)){
             clientOrder.contact.city = e.target.value;
-            validInputs = true;
-        }else{
-            validInputs = false;
-
+            displayButton(clientOrder);
         }
     });
     
     email.addEventListener('change', (e) =>{
         if(isValid(emailRegex, e)){
             clientOrder.contact.email = e.target.value;
-            validInputs = true;
-        }else{
-            validInputs = false;
+            displayButton(clientOrder);
         }
     });
-
 }
+

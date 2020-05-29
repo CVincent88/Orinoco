@@ -15,19 +15,9 @@ if(itemsInCart != null){
     let city = document.getElementById('city');
     let email = document.getElementById('email');
     
-    validateInputs(firstName, lastName, address, city, email, validInputs, clientOrder);
+    validateInputs(firstName, lastName, address, city, email, clientOrder);
     
     
-    // if(validInputs == false){
-    //     let button = document.getElementById('submit-order');
-    //     button.style.backgroundColor = '#000';
-    //     button.style.pointerEvents = 'none';
-    // }else{
-    //     console.log('all is good');
-    //     let button = document.getElementById('submit-order');
-    //     button.style.backgroundColor = '#68687a';
-    //     button.style.pointerEvents = 'auto';
-    // }
     submitOrder.addEventListener('click', (e) =>{
     
         postData("http://localhost:3000/api/cameras", clientOrder)
@@ -47,6 +37,7 @@ if(itemsInCart != null){
         })
         .catch((error) =>{
             console.log(error);
+            alert('Veuillez remplir tous les champs du formulaire correctement.');
         });
         
         e.preventDefault();
