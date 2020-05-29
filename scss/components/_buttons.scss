@@ -1,0 +1,91 @@
+@keyframes notification-bounce{
+    0%{
+        transform: scale(1);
+    }
+    90%{
+        transform: scale(2);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.notification-panel{
+    width: 200px;
+    position: fixed; top: 20vh; left: 100vw - 20vw;
+    text-decoration: none;
+    
+    & .notification{
+        height: 20px;
+        width: 20px;
+        line-height: 20px;
+        position: absolute; top: 0; right: 0;
+        border-radius: 50%;
+        background-color: rgba(219, 1, 1, 0.9);
+        color: white;
+        opacity: 0;
+        z-index: 99;
+        text-align: center;
+        transform: scaleY(1);
+        animation: notification-bounce 1000ms;
+        animation-play-state: paused;  
+        
+    }
+    .my-cart-large-container{
+        width: 200px;
+        overflow: hidden;
+        border: 0;
+        border-radius: 50px 50px ;
+        
+        & .my-cart-container{
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover .my-cart{
+                transform: translateX(0);
+            }
+            &:hover .my-cart .fas{
+                transform: rotateY(180deg);
+            }
+            &:hover .my-cart .cart-container{
+                color: $product-icon-color-secondary;
+            }
+            &:hover .my-cart .cart-container_texte{
+                opacity: 1;
+            }
+            .my-cart{
+                width: 200px;
+                border-radius: 50px 50px ;
+                text-align: center;
+                line-height: 67px;
+                background-color: white;
+                transform: translateX(8em);
+                transform-origin: center left;
+                transition: transform .3s ease-in-out;
+                & .fas{
+                    font-size: 1.7em;
+                    transform: rotate(0);
+                    transition: transform .3s ease-in-out;
+                }
+                & .cart-container{
+                    color: $product-icon-color-primary;
+                    transition: color .3s ease-in-out;
+                    &_texte{
+                        user-select: none;
+                        color: $product-icon-color-primary;
+                        font-family: 'Balsamiq Sans', cursive;
+                        font-size: 1.5em;
+                        display: inline-block;
+                        margin: 2px;
+                        opacity: 0;
+                        transition: opacity .3s ease-in-out;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+

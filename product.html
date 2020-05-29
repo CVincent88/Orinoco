@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a61f28c43a.js" crossorigin="anonymous"></script>
+
+    <title>Orinoco | Oricam - Vente d'appareil photo</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"></a>
+    </header>
+
+    <a href="cart.html" id="notif-panel" class="notification-panel">
+        <span id="notifications" class="notification"></span>
+        <div id="cart-button" class="my-cart-large-container">
+            <div class="my-cart-container">
+                <div class="my-cart">
+                    <div class="cart-container">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span class="cart-container_texte">Mon panier</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <section id="product-wrapper" class="product-container">
+        <!-- <img class="product-container_img"></img> : Généré avec JS-->
+        <div id="customization-wrapper" class="product-container_customization">
+            <p id="customization-text" class="product-container_customization_text"></p>
+            <select name="customization" id="customization-options" class="product-container_customization_options">
+            </select>
+        </div>
+        <!-- <span class="product-container_text_name"></span> : Généré avec JS-->
+        <!-- <p class="product-container_text_description"></p> : Généré avec JS-->
+        <div class="product-container_ratings"><span>Avis:</span> Aucun avis pour le moment</div>
+        <span id="product-price" class="product-container_price"></span>
+        <button id="add-cart" class="product-container_add-cart">Ajouter au panier</button>
+    </section>
+    
+
+    <footer>
+        <div class="link-box">
+            <a href="#">Mentions légales</a>
+            <span>-</span>
+            <a href="mailto:contact@orinoco.fr">Contact</a>
+        </div>
+        
+    </footer>
+
+    <script src="./js/functions.js" ></script>
+    <script src="./js/product.js"></script>
+    <!-- <script src="./js/cart.js"></script> -->
+</body>
+</html>

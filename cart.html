@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+
+    <title>Orinoco | Oricam - Vente d'appareil photo</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"></a>
+    </header>
+
+    <section class="cart-wrapper">
+        <h1>Mon panier</h1>
+        <h2 id="empty-cart" class="empty-cart">Votre panier est vide</h2>
+        <a href="index.html" id="homepage">Retourner à la page d'accueil</a>
+        <table id="inCart-table" class="inCart-table"> 
+
+            <!-- <tr class="inCart-table_product">
+                <td class="inCart-table_product_img"></td>
+                <td class="inCart-table_product_name">Asus 430</td>
+                <td class="inCart-table_product_price">$399</td>
+                <td class="inCart-table_product_quantity">
+                    <span class="inCart-table_product_quantity_number">3</span>
+                    <button class="add-product">+</button>
+                    <button class="substract-product">-</button>
+                </td>
+                <td class="inCart-table_product_delete">
+                    <button>X</button>
+                </td>
+            </tr> -->
+
+            <tr class="total-cost">
+                <td colspan="5">Total: $ <span id="total-cost_number"></span></td>
+            </tr>
+        </table>
+        <div id="form" class="form">
+            <h2>Vos informations</h2>
+            <form action="POST" method="#">
+                <div class="first-name-container">
+                    <label for="first-name">Prénom</label>
+                    <input type="text" id="first-name" class="first-name input-client" maxlength="40" required>
+                </div>
+                <div class="last-name-container">
+                    <label for="last-name">Nom</label>
+                    <input type="text" id="last-name" class="last-name input-client" maxlength="40" required>
+                </div>
+                <div class="address-container">
+                    <label for="address">Adresse</label>
+                    <input type="text" id="address" class="address input-client" maxlength="200" required>
+                </div>
+                <div class="city-container">
+                    <label for="city">Ville</label>
+                    <input type="text" id="city" class="city input-client" maxlength="40" required>
+                </div>
+                <div class="email-container">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="email input-client" maxlength="150" required>
+                </div>
+                <button id="submit-order">Passer la commande</button>
+            </form>
+        </div>
+        
+    </section>
+
+
+    <footer>
+        <div class="link-box">
+            <a href="#">Mentions légales</a>
+            <span>-</span>
+            <a href="mailto:contact@orinoco.fr">Contact</a>
+        </div>
+        
+    </footer>
+
+    <script src="./js/functions.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/form.js"></script>
+</body>
+</html>

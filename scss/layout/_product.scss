@@ -1,0 +1,72 @@
+.product-page{
+    width: 80vw;
+    height: 80vh;
+    background-color: $background-color-primary;
+    border-radius: 10px 10px;
+    border: 1px solid rgb(112, 111, 111);
+    position: absolute; top: 10vh; left: 10vw;
+    z-index: 9;
+    display: none;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 2fr 1fr;
+
+    &_close{
+        display: inline-block;
+        position: absolute; top: 3%; right: 1.5%;
+        width: 20px;
+        height: 20px;
+        background-color: $background-color-primary;
+        color: $product-icon-color-primary;
+        font-family: 'Balsamiq Sans', cursive;
+        font-size: 2em;
+        font-weight: bolder;
+        cursor: pointer;
+    }
+    &_img{
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        width: 80%;
+        height: 80%;
+        background-color: blue;
+        border-radius: 10px 10px;
+    }
+    & .customization{
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        &_options{
+            margin: 5px;
+        }
+    }
+    &_text{
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        text-align: center;
+        &_name{
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        &_description{
+            padding: 35px;
+        }
+        &_price{
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+    }
+    &_add{
+        width: 40%;
+        height: 30%;
+        border-radius: 10px 10px;
+        font-family: 'Balsamiq Sans', cursive;
+        font-size: 1.5em;
+        background-color: $background-color-secondary;
+        color: $product-icon-color-primary;
+        box-shadow: 0 0 3px $background-color-primary-shadow;
+        cursor: pointer;
+    }
+}
