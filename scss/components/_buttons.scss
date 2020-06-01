@@ -12,8 +12,9 @@
 
 .notification-panel{
     width: 200px;
-    position: fixed; top: 20vh; left: 100vw - 20vw;
+    position: fixed; top: 20vh; right: 5%;
     text-decoration: none;
+    z-index: 25;
     
     & .notification{
         height: 20px;
@@ -28,8 +29,7 @@
         text-align: center;
         transform: scaleY(1);
         animation: notification-bounce 1000ms;
-        animation-play-state: paused;  
-        
+        animation-play-state: paused;
     }
     .my-cart-large-container{
         width: 200px;

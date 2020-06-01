@@ -3,12 +3,16 @@ header{
     height: 150px;
     background-color: $background-color-primary;
     box-shadow: 0 0 3px black;
-
     & .logo{
-        display: block  ;
+        display: block;
         margin: 0 auto;
-        width: 333px;
-        height: 150px;
+        width: 21em;
+        height: 9.37em;
         background: url(../images/logo-orinoco.png);
+        @media screen and(max-width: 375px){
+            width: 18.75em;
+            height: 8.44em;
+            background: url(../images/logo-orinoco-small.png) no-repeat center;
+        }
     }
 }
