@@ -17,26 +17,26 @@
         <h1>Mon panier</h1>
         <h2 id="empty-cart" class="empty-cart">Votre panier est vide</h2>
         <a href="index.html" id="homepage">Retourner à la page d'accueil</a>
-        <table id="inCart-table" class="inCart-table"> 
+        <div id="cartContainer" class="cartContainer"> 
 
-            <!-- <tr class="inCart-table_product">
-                <td class="inCart-table_product_img"></td>
-                <td class="inCart-table_product_name">Asus 430</td>
-                <td class="inCart-table_product_price">$399</td>
-                <td class="inCart-table_product_quantity">
-                    <span class="inCart-table_product_quantity_number">3</span>
+            <!-- <div class="cartContainer_product">
+                <img class="cartContainer_product_img"></img>
+                <div class="cartContainer_product_name">Asus 430</div>
+                <div class="cartContainer_product_price">$399</div>
+                <div class="cartContainer_product_quantity">
+                    <span class="cartContainer_product_quantity_number">3</span>
                     <button class="add-product">+</button>
                     <button class="substract-product">-</button>
-                </td>
-                <td class="inCart-table_product_delete">
+                </div>
+                <div class="cartContainer_product_delete">
                     <button>X</button>
-                </td>
-            </tr> -->
+                </div>
+            </div> -->
 
-            <tr class="total-cost">
-                <td colspan="5">Total: $ <span id="total-cost_number"></span></td>
-            </tr>
-        </table>
+            <div class="total-cost">
+                <p>Total: $ <span id="total-cost_number"></span></p>
+            </div>
+        </div>
         <div id="form" class="form">
             <h2>Vos informations</h2>
             <form action="POST" method="#">

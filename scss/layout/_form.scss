@@ -5,6 +5,10 @@
     padding: 15px;
     background-color: white;
     box-shadow: 0 0 5px $list-element-shadow;
+    @media screen and(max-width: 600px){
+        width: 95%;
+        padding: 15px 0;
+    }
     & h2{
         text-align: center;
         margin: 0 auto;
@@ -17,6 +21,14 @@
         column-gap: 30px;
         row-gap: 30px;
         align-items: center;
+        @media screen and(max-width: 600px){
+            display: flex;
+            flex-flow: column nowrap;
+            & > div{
+                width: 100%;  
+                margin: 15px;
+            }
+        }
         & input{
             font-size: 1em;
             padding-top: 10px;
@@ -82,7 +94,13 @@
             line-height: 2em;
             background-color: #68687a;
             pointer-events: auto;
+            @media screen and(max-width: 600px){
+                width: 80%;
+                line-height: 1.3em;
+            }
+            @media screen and(max-width: 385px){
+                width: 90%;
+            }      
         }
     }
-    
-}
+}  

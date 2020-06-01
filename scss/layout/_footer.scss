@@ -6,6 +6,9 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and(max-width: 768px){
+        height: 100px;
+    }
     & .link-box{
         width: 20%;
         display: flex;
@@ -15,6 +18,8 @@ footer{
             color: $text-color;
             font-size: 1.1em;
             position: relative;
+            white-space: nowrap;
+            padding: 0 15px;
             &::before{
                 content: "";
                 width: 100%;

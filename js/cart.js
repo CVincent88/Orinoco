@@ -9,12 +9,12 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
     let itemsId = Object.keys(itemsInCart)
 
     for(i=0; i<itemsId.length; i++){
-        let cartRow = document.createElement('tr');
+        let cartRow = document.createElement('div');
         let newItemInCart = itemsInCart[itemsId[i]]
 
         newItemInCart = new CartProduct(newItemInCart.name, newItemInCart.id, newItemInCart.price, newItemInCart.imageUrl, newItemInCart.quantity);
 
-        newItemInCart.tableRow(cartRow);
+        newItemInCart.articleRow(cartRow);
         newItemInCart.tableProductImg(cartRow);
         newItemInCart.tableProductName(cartRow);
         newItemInCart.tableProductPrice(cartRow);

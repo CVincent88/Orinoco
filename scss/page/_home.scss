@@ -1,0 +1,81 @@
+#define-list{
+    padding: 0;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    & .list-element{
+        width: 90%;
+        height: auto;
+        margin: 10px;
+        list-style-type: none;
+        background-color: $background-color-primary;
+        box-shadow: 0 0 3px $list-element-shadow;
+        &:hover .list-element_link_img img{
+            transform: scale(1.2);
+        }
+        @media screen and (max-width: 880px){
+            width: 95%;
+        }
+        &_link{
+            text-decoration: none;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: $text-color;
+            @media screen and (max-width: 768px){
+                justify-content: space-around;
+            }
+            @media screen and (max-width: 500px){
+                flex-flow: column nowrap;
+            }
+            &_img{
+                width: 20%;
+                min-width: 16em;
+                height: 145px;
+                order: 1;
+                overflow: hidden;
+                margin-left: 15px;
+                & img{
+                    width: 100%;
+                    height: 9.1em;
+                    transform: scale(1);
+                    transition: transform 2s ease-in-out;
+                }
+            }
+            &_text{
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
+                text-align: center;
+                width: 60%;
+                order: 2;
+                @media screen and (max-width: 768px){
+                    display: inline;
+                    width: auto;
+                    margin: 0 10px;
+                }
+                &_name{
+                    font-size: 1.4em;
+                }
+                &_description{
+                    font-size: 1.1em;
+                    margin: 0 10px;
+                    @media screen and (max-width: 768px){
+                        display: none;
+                    }
+                }
+            }
+            &_price{
+                order: 3;
+                font-size: 1.5em;
+                margin: 0 10px;
+                white-space: nowrap;
+            }
+        }  
+    }
+    
+}

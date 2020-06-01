@@ -39,6 +39,7 @@ getData("http://localhost:3000/api/cameras/" + idProduct) // Appel de la promess
             
             let notif = document.getElementById('notifications');
             notif.style.animationPlayState = 'running';
+            notif.style.animationPlayState = 'initial';
             setTimeout(()=>{
                 notif.style.animationPlayState = 'paused';
             }, 1500);
