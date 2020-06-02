@@ -1,5 +1,5 @@
-// *** Récupération des données *** //
-// -------------------------------- //
+// *** GET request *** //
+// ------------------- //
 function getData(url) {
     return new Promise((resolve, reject) => {
         const myRequest = new XMLHttpRequest();
@@ -10,8 +10,8 @@ function getData(url) {
     });
 }
 
-// *** Envoi de données *** //
-// -------------------------------- //
+// *** POST request *** //
+// -------------------- //
 function postData(url, objectToPost) {
     return new Promise((resolve, reject) =>{
         const myRequest = new XMLHttpRequest();
@@ -21,6 +21,25 @@ function postData(url, objectToPost) {
         myRequest.onerror = () => reject(JSON.parse(myRequest.statusText));
         myRequest.send(JSON.stringify(objectToPost));
     });
+}
+
+// *** Envoi de données *** //
+// ------------------------ //
+async function submitData(clientOrder){
+    try{
+        const response = await postData("http://localhost:3000/api/cameras", clientOrder);
+        function confirmOrder(firstName, orderId){
+            localStorage.setItem('name', `${firstName}`);
+            localStorage.setItem('confirmation id', `${orderId}`);
+        }
+    
+        confirmOrder(response.contact.firstName, response.orderId);
+    
+        window.location.href = "confirmation.html"
+    }catch(err){
+        console.log(err);
+    }
+
 }
 
 // *** Constructeur pour l'affichage de index.html et page produit *** //
@@ -400,13 +419,13 @@ function cartNotifications(){
 // *** Fonction d"affichage du bouton si tous les inputs sont remplis correctement *** //
 // ----------------------------------------------------------------------------------- //
 function displayButton(clientOrder){
+
     if(Object.keys(clientOrder.contact).length != 5){
         let button = document.getElementById("submit-order");
         button.style.backgroundColor = "#68687A";
         button.style.color = "#000000";
         button.style.pointerEvents = "none";
     }else{
-        console.log("all is good");
         let button = document.getElementById("submit-order");
         button.style.backgroundColor = "#6f44c4";
         button.style.color = "#FFFFFF";
@@ -468,4 +487,3 @@ function validateInputs(firstName, lastName, address, city, email, clientOrder){
         }
     });
 }
-

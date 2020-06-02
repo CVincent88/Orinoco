@@ -19,29 +19,10 @@ if(itemsInCart != null){
     
     
     submitOrder.addEventListener('click', (e) =>{
-    
-        postData("http://localhost:3000/api/cameras", clientOrder)
-        .then((value) =>{ 
 
-            function confirmOrder(firstName, orderId){
-                localStorage.setItem('name', `${firstName}`);
-                localStorage.setItem('confirmation id', `${orderId}`);
-            }
+        submitData(clientOrder);
 
-            confirmOrder(value.contact.firstName, value.orderId);
-            
-            setTimeout(() =>{
-                window.location.href = "confirmation.html";
-            }, 500);
-            
-        })
-        .catch((error) =>{
-            console.log(error);
-            alert('Veuillez remplir tous les champs du formulaire correctement.');
-        });
-        
         e.preventDefault();
-
     });
 }
 
