@@ -9,8 +9,16 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    & span{
+        padding: 10px 0;
+    }
     & h1{
         font-size: 2em;
+        text-align: center;
+    }
+    & #order-id{
+        font-size: 1.7em;
+        text-align: center;
     }
     & a{
         text-align: center;
@@ -23,8 +31,5 @@
         background-color: rgb(63, 63, 151);
         font-family: sans-serif;
         margin: 75px 0 0 0;
-    }
-    & #command-id{
-        font-size: 2em;
     }
 }

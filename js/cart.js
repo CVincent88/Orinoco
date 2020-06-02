@@ -35,6 +35,10 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
     let form = document.getElementById('form');
     form.style.display = 'block';
 
+    // Affichage du coût total uniquement si le panier n'est pas vide
+    let totalCost = document.getElementById('totalCost');
+    totalCost.style.display = 'block';
+
 }else{ // Si le panier est vide, on propose le retour au menu principal
             
     let emptyCart = document.getElementById('empty-cart');
