@@ -31,16 +31,21 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
 
     localStorage.setItem('totalPrice', `${totalCartPrice}`);
 
-    // Afficher le formulaire
+    // Affichage du formulaire
     let form = document.getElementById('form');
     form.style.display = 'block';
 
-    // Affichage du coût total uniquement si le panier n'est pas vide
-    let totalCost = document.getElementById('totalCost');
-    totalCost.style.display = 'block';
-
 }else{ // Si le panier est vide, on propose le retour au menu principal
-            
+
+    // On cache la div coût total si le panier est vide
+    let totalCost = document.getElementById('totalCost');
+    totalCost.style.display = 'none';
+
+    // On cache la div cartContainer si le panier est vide
+    let cartContainer = document.getElementById('cartContainer');
+    cartContainer.style.display = 'none';
+
+    // On affiche les éléments indiquant que le panier est vide
     let emptyCart = document.getElementById('empty-cart');
     if(emptyCart){ // Condition présente uniquement pour éxecuter le code uniquement sur la page panier.
         emptyCart.style.display = 'block';

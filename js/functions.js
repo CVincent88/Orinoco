@@ -63,7 +63,7 @@ function Product(name, lenses, id, price, description, imageUrl){
     let customizationWrapper = document.getElementById("customization-wrapper");
     let customizationText = document.getElementById("customization-text");
     let customizationOptionsContainer = document.getElementById("customization-options");
-        
+    
     this.listElt = function(){
         // création des <li> et assignation propriétés
         newListElt.classList.add("list-element");
