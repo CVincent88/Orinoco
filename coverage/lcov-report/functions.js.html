@@ -1499,11 +1499,11 @@ function <span class="fstat-no" title="function not covered" >CartProduct(</span
 <span class="cstat-no" title="statement not covered" >        buttonBox.appendChild(addProduct);</span>
 &nbsp;
         // Bouton retrait de produit
-        let substractProduct = <span class="cstat-no" title="statement not covered" >document.createElement("button");</span>
-<span class="cstat-no" title="statement not covered" >        substractProduct.classList.add("substract-product");</span>
-<span class="cstat-no" title="statement not covered" >        substractProduct.setAttribute("data-id", this.id)</span>
-<span class="cstat-no" title="statement not covered" >        substractProduct.textContent = "-"</span>
-<span class="cstat-no" title="statement not covered" >        buttonBox.appendChild(substractProduct);</span>
+        let subtractProduct = <span class="cstat-no" title="statement not covered" >document.createElement("button");</span>
+<span class="cstat-no" title="statement not covered" >        subtractProduct.classList.add("subtract-product");</span>
+<span class="cstat-no" title="statement not covered" >        subtractProduct.setAttribute("data-id", this.id)</span>
+<span class="cstat-no" title="statement not covered" >        subtractProduct.textContent = "-"</span>
+<span class="cstat-no" title="statement not covered" >        buttonBox.appendChild(subtractProduct);</span>
 &nbsp;
 &nbsp;
 &nbsp;
@@ -1528,8 +1528,8 @@ function <span class="fstat-no" title="function not covered" >CartProduct(</span
         });
 &nbsp;
         // Retrqit produit au clic sur le bouton
-<span class="cstat-no" title="statement not covered" >        substractProduct.addEventListener("click", <span class="fstat-no" title="function not covered" >fu</span>nction(){</span>
-            let dataId = <span class="cstat-no" title="statement not covered" >substractProduct.getAttribute("data-id");</span>
+<span class="cstat-no" title="statement not covered" >        subtractProduct.addEventListener("click", <span class="fstat-no" title="function not covered" >fu</span>nction(){</span>
+            let dataId = <span class="cstat-no" title="statement not covered" >subtractProduct.getAttribute("data-id");</span>
             let notifNumber = <span class="cstat-no" title="statement not covered" >localStorage.getItem("notificationNumber");</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                itemsInCart[dataId].quantity --;</span>
