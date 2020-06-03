@@ -4,11 +4,10 @@ if(itemsInCart != null){
     let clientOrder = {
         contact: {},
         products: itemsId
-    
     };
     let validInputs = false
     
-    let submitOrder = document.getElementById('submit-order');
+    let submitButton = document.getElementById('submit-order');
     let firstName = document.getElementById('first-name');
     let lastName = document.getElementById('last-name');
     let address = document.getElementById('address');
@@ -18,11 +17,11 @@ if(itemsInCart != null){
     validateInputs(firstName, lastName, address, city, email, clientOrder);
     
     
-    submitOrder.addEventListener('click', (e) =>{
-
-        submitData(clientOrder);
-
+    submitButton.addEventListener('click', (e) =>{
+        
+        submitOrder(clientOrder);
         e.preventDefault();
+
     });
 }
 

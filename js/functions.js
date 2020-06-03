@@ -1,5 +1,5 @@
-// *** GET request *** //
-// ------------------- //
+// *** GET request promise *** //
+// --------------------------- //
 function getData(url) {
     return new Promise((resolve, reject) => {
         const myRequest = new XMLHttpRequest();
@@ -10,8 +10,8 @@ function getData(url) {
     });
 }
 
-// *** POST request *** //
-// -------------------- //
+// *** POST request promise *** //
+// ---------------------------- //
 function postData(url, objectToPost) {
     return new Promise((resolve, reject) =>{
         const myRequest = new XMLHttpRequest();
@@ -23,21 +23,85 @@ function postData(url, objectToPost) {
     });
 }
 
-// *** Envoi de données *** //
-// ------------------------ //
-async function submitData(clientOrder){
+// *** Récupération des données JSON et appel du constructeur pour l'index.html *** //
+// -------------------------------------------------------------------------------- //
+async function buildIndex(){
+    try{
+        let response = await getData("http://localhost:3000/api/cameras/");
+        for(i=0; i<response.length; i++){
+            let newArticle = new Product(response[i].name, response[i].lenses, response[i]._id, response[i].price, response[i].description, response[i].imageUrl);
+            
+            newArticle.listElt();
+            newArticle.image();
+            newArticle.textContainer();
+            newArticle.productName();
+            newArticle.productDescription();
+            newArticle.productPrice();
+        }
+        cartNotifications();
+    }catch(error){
+        console.log('oupsy');
+    }
+}
+
+// *** Construction du product.html *** //
+// ------------------------------------ //
+async function buildProductPage(){
+    try{
+        let response = await getData("http://localhost:3000/api/cameras/" + idProduct); // Appel de la promesse
+
+        // Appel du constructeur
+        let articleSelected = new Product(response.name, response.lenses, response._id, response.price, response.description, response.imageUrl);
+
+        articleSelected.image();
+        articleSelected.customizeProduct(response);
+        articleSelected.productName();
+        articleSelected.productDescription();
+        articleSelected.productPrice();
+        articleSelected.homePage();
+        
+        // Garde la notification active lorsqu'on arrive sur la page produit
+        cartNotifications();
+
+        // Ajout du produit dans le panier (localStorage) grâce au bouton
+        let addCart = document.getElementById('add-cart');
+
+        addCart.addEventListener('click', function(){
+
+            // Ajout du produit au panier
+            addToCart(cart, articleSelected);
+
+            // Mise à jour de la notification après ajout du produit au panier
+            cartNotifications();     
+            
+            let notif = document.getElementById('notifications');
+            notif.style.animationPlayState = 'running';
+            notif.style.animationPlayState = 'initial';
+            setTimeout(()=>{
+                notif.style.animationPlayState = 'paused';
+            }, 1500);
+        });
+    }catch(error){
+        console.log(error);
+    }
+}
+
+// *** Envoi de la commande au serveur et récupération de l'ID de commande *** //
+// --------------------------------------------------------------------------- //
+async function submitOrder(clientOrder){
     try{
         const response = await postData("http://localhost:3000/api/cameras", clientOrder);
-        function confirmOrder(firstName, orderId){
+
+        function orderConfirmation(firstName, orderId){
             localStorage.setItem('name', `${firstName}`);
             localStorage.setItem('confirmation id', `${orderId}`);
         }
     
-        confirmOrder(response.contact.firstName, response.orderId);
-    
+        orderConfirmation(response.contact.firstName, response.orderId);
         window.location.href = "confirmation.html"
-    }catch(err){
-        console.log(err);
+
+    }catch(error){
+        console.log(error);
     }
 
 }
@@ -201,7 +265,7 @@ function CartProduct(name, id, price, imageUrl, quantity){
     this.articleRow = function(cartRow){
         // Récupération et affichage du tableau
         const cartContainer = document.getElementById("cartContainer")
-        cartContainer.style.display = "div";
+        cartContainer.style.display = "div ";
 
         // Création ligne de tableau pour produit dans le panier
         cartRow.classList.add("cartContainer_product");
@@ -269,8 +333,8 @@ function CartProduct(name, id, price, imageUrl, quantity){
 
 
         // Ajout produit au clic sur le bouton
-        addProduct.addEventListener("click", function(){
-            let dataId = addProduct.getAttribute("data-id");
+        addProduct.addEventListener("click", function(){ 
+            let dataId = addProduct.dataset.id;
             let notifNumber = localStorage.getItem("notificationNumber");
 
             if(itemsInCart[dataId].quantity < 15 && itemsInCart[dataId].quantity >= 0){
@@ -288,7 +352,7 @@ function CartProduct(name, id, price, imageUrl, quantity){
             }
         });
 
-        // Retrqit produit au clic sur le bouton
+        // Retra/it produit au clic sur le bouton
         substractProduct.addEventListener("click", function(){
             let dataId = substractProduct.getAttribute("data-id");
             let notifNumber = localStorage.getItem("notificationNumber");
@@ -486,4 +550,10 @@ function validateInputs(firstName, lastName, address, city, email, clientOrder){
             displayButton(clientOrder);
         }
     });
+}
+
+
+module.exports = {
+    getData, 
+    postData
 }
