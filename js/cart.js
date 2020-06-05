@@ -5,7 +5,7 @@ itemsInCart = JSON.parse(localStorage.getItem('cart'));
 
 
 if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorage, on afiche le contenu du panier et le formulaire.
-    // Stockage dans un tableau des Ids articles présent dans le panier
+    // Stockage de l'ID des objets dans le panier dans un tableau
     let itemsId = Object.keys(itemsInCart)
 
     for(i=0; i<itemsId.length; i++){
@@ -22,7 +22,6 @@ if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorag
         newItemInCart.tableDeleteProduct(cartRow, newItemInCart.id);
 
         totalCartPrice += newItemInCart.totalPrice(newItemInCart.quantity, newItemInCart.price);
-
     }   
 
     // Affichage prix total

@@ -57,7 +57,6 @@ function Product(name, lenses, id, price, description, imageUrl){
             img.setAttribute("src", `${this.imageUrl}`);
             imgWrapper.prepend(img);
         }
-        
     }
 
     this.textContainer = function(){
@@ -222,9 +221,13 @@ function CartProduct(name, id, price, imageUrl, quantity){
         subtractProduct.textContent = "-"
         buttonBox.appendChild(subtractProduct);
 
-        addArticle(addProduct, quantityNumber);
-
-        subtractArticle(subtractProduct, quantityNumber);
+        addProduct.addEventListener('click', () => {
+            addArticle(addProduct, quantityNumber);
+        });
+        
+        subtractProduct.addEventListener('click', () => {
+            subtractArticle(addProduct, quantityNumber);
+        });
     }
 
     this.tableDeleteProduct = function(cartRow, itemId){
@@ -238,7 +241,9 @@ function CartProduct(name, id, price, imageUrl, quantity){
         deleteButton.textContent = "X";
         deleteProductContainer.appendChild(deleteButton);
 
-        deleteArticle(deleteButton, itemId)
+        deleteButton.addEventListener('click', () => {
+            deleteArticle(itemId)
+        });
     }
 
     this.totalPrice = function(quantity, price){

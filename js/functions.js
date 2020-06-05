@@ -28,6 +28,7 @@ function postData(url, objectToPost) {
 async function buildIndex(){
     try{
         let response = await getData("http://localhost:3000/api/cameras/");
+        
         for(i=0; i<response.length; i++){
             let newArticle = new Product(response[i].name, response[i].lenses, response[i]._id, response[i].price, response[i].description, response[i].imageUrl);
             
@@ -40,12 +41,12 @@ async function buildIndex(){
         }
         cartNotifications();
     }catch(error){
-        console.log('oupsy');
+        console.log(error);
     }
 }
 
 // *** Construction du product.html *** //
-// ------------------------------------ //
+// ----------------- ------------------- //
 async function buildProductPage(){
     try{
         let response = await getData("http://localhost:3000/api/cameras/" + idProduct); // Appel de la promesse
@@ -106,97 +107,13 @@ async function submitOrder(clientOrder){
 
 }
 
-// Ajoute une instance à un article déjà dans le panier
-function addArticle(addProduct, quantityNumber){
-    addProduct.addEventListener("click", function(){ 
-        let dataId = addProduct.dataset.id;
-        let notifNumber = localStorage.getItem("notificationNumber");
-
-        if(itemsInCart[dataId].quantity < 15 && itemsInCart[dataId].quantity >= 0){
-
-            itemsInCart[dataId].quantity ++;
-            notifNumber ++;
-            localStorage.setItem("notificationNumber", notifNumber);
-            localStorage.setItem("cart", JSON.stringify(itemsInCart));
-
-            quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
-            window.location.reload();
-
-        }else{
-            alert("Si vous souhaitez commander un tel nombre d\"appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.");
-        }
-    });
-}
-
-// Supprime une instance d'un article dans le panier
-function subtractArticle(subtractProduct, quantityNumber){
-    subtractProduct.addEventListener("click", function(){
-        let dataId = subtractProduct.getAttribute("data-id");
-        let notifNumber = localStorage.getItem("notificationNumber");
-
-        itemsInCart[dataId].quantity --;
-        notifNumber --;
-
-        if(itemsInCart[dataId].quantity === 0){
-                // Suppression de l'article dans le panier
-            delete itemsInCart[dataId];
-
-            // Si le panier est vide, on nettoie le LocalStorage pour ne plus afficher la notification ou le formulaire
-            if(notifNumber === 0){
-                localStorage.clear();
-
-            // Sinon, on renvoie le reste des élément dans le panier pour l'actualisation de la page.
-            }else{
-                localStorage.setItem("notificationNumber", notifNumber);
-                localStorage.setItem("cart", JSON.stringify(itemsInCart));  
-            }  
-            window.location.reload();
-        }
-
-        if(notifNumber != 0){
-            localStorage.setItem("notificationNumber", notifNumber)
-            localStorage.setItem("cart", JSON.stringify(itemsInCart));
-
-            quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
-            window.location.reload();
-        }
-    });
-}
-
-// Supprime un article du panier (ainsi que toutes ces instances)
-function deleteArticle(deleteButton, itemId){
-    // Evènement permettant de supprimer un produit du panier
-    deleteButton.addEventListener("click", function(){
-        // On récupère le contenu du panier et le LocalStorage
-        let numberOfProduct = itemsInCart[itemId].quantity;
-        let notifNumber = localStorage.getItem("notificationNumber");
-
-        // Suppression de l'article dans le panier
-        delete itemsInCart[itemId];
-
-        // Modifications de la notification
-        notifNumber -= numberOfProduct;
-
-        // Si le panier est vide, on nettoie le LocalStorage pour ne plus afficher la notification
-        if(notifNumber === 0){
-            localStorage.clear();
-
-        // Sinon, on renvoie le reste des élément dans le panier pour l'actualisation de la page.
-        }else{
-            localStorage.setItem("notificationNumber", notifNumber);
-            localStorage.setItem("cart", JSON.stringify(itemsInCart));  
-        }  
-        window.location.reload(); 
-    });
-}
-
-// *** Fonction d"ajout des éléments dans le panier depuis la page produit*** //
-// -------------------------------------------------------------------------- //
+// *** Ajout des éléments dans le panier depuis la page produit*** //
+// --------------------------------------------------------------- //
 function addToCart(cart, articleSelected){
     if (localStorage.length === 0){
         cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
         localStorage.setItem("cart", JSON.stringify(cart));
-        localStorage.setItem("notificationNumber", 1)
+        localStorage.setItem("notificationNumber", 1);
     }else{
         cart = JSON.parse(localStorage.getItem("cart"));
         const cartEntries = Object.keys(cart)
@@ -218,100 +135,123 @@ function addToCart(cart, articleSelected){
     }
 }
 
+// *** Ajoute une instance à un article déjà dans le panier *** //
+// ------------------------------------------------------------ //
+function addArticle(addProduct, quantityNumber){ 
+    let dataId = addProduct.dataset.id;
+    let notifNumber = localStorage.getItem("notificationNumber");
+
+    if(itemsInCart[dataId].quantity < 15 && itemsInCart[dataId].quantity >= 0){
+
+        itemsInCart[dataId].quantity ++;
+        notifNumber ++;
+        localStorage.setItem("notificationNumber", notifNumber);
+        localStorage.setItem("cart", JSON.stringify(itemsInCart));
+
+        quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+        window.location.reload();
+
+    }else{
+        alert("Si vous souhaitez commander un tel nombre d\'appareils photo, veuillez nous contacter pour confirmer les stocks disponibles. Merci.");
+    }
+    
+}
+
+// *** Supprime une instance d'un article dans le panier *** //
+// --------------------------------------------------------- //
+function subtractArticle(subtractProduct, quantityNumber){
+
+    let dataId = subtractProduct.dataset.id;
+    let notifNumber = localStorage.getItem("notificationNumber");
+
+    itemsInCart[dataId].quantity --;
+    notifNumber --;
+
+    if(itemsInCart[dataId].quantity === 0){
+            // Suppression de l'article dans le panier
+        delete itemsInCart[dataId];
+
+        // Si le panier est vide, on nettoie le LocalStorage pour ne plus afficher la notification ou le formulaire
+        if(notifNumber === 0){
+            localStorage.clear();
+
+        // Sinon, on renvoie le reste des élément dans le panier pour l'actualisation de la page.
+        }else{
+            localStorage.setItem("notificationNumber", notifNumber);
+            localStorage.setItem("cart", JSON.stringify(itemsInCart));  
+        }  
+        window.location.reload();
+    }
+
+    if(notifNumber != 0){
+        localStorage.setItem("notificationNumber", notifNumber)
+        localStorage.setItem("cart", JSON.stringify(itemsInCart));
+
+        quantityNumber.textContent = `Quantité: ${itemsInCart[dataId].quantity}`;
+        window.location.reload();
+    }
+}
+
+// *** Supprime un article du panier (ainsi que toutes ces instances) *** //
+// ---------------------------------------------------------------------- //
+function deleteArticle(itemId){
+
+    // On récupère le contenu du panier et le LocalStorage
+    let numberOfProduct = itemsInCart[itemId].quantity;
+    let notificationNumber = localStorage.getItem("notificationNumber");
+
+    // Suppression de l'article dans le panier
+    delete itemsInCart[itemId];
+
+    // Modifications de la notification
+    notificationNumber -= numberOfProduct;
+
+    // Si le panier est vide, on nettoie le LocalStorage pour ne plus afficher la notification
+    if(notificationNumber === 0){
+        localStorage.clear();
+
+    // Sinon, on renvoie le reste des élément dans le panier pour l'actualisation de la page.
+    }else{
+        localStorage.setItem("notificationNumber", notificationNumber);
+        localStorage.setItem("cart", JSON.stringify(itemsInCart));  
+    }  
+    window.location.reload(); 
+}
+
 // *** Affichage de la notification pour le nombre d"éléments dans le panier *** //
 // ----------------------------------------------------------------------------- //
 function cartNotifications(){
     
     let notifications = document.getElementById("notifications");
-    
-    let notificationNumber = 0;
+    let notificationNumber = localStorage.getItem("notificationNumber");
 
-    if(notifications){ // Condition pour éxecuter le code uniquement sur les pages où le bouton panier est présent
-        if(localStorage.length > 0){
-            notificationNumber = localStorage.getItem("notificationNumber");
-
-            notifications.style.opacity = "1";
-            notifications.textContent = notificationNumber;
-        }else{
-            notifications.style.opacity = "0";
-        }
-    }
-}
-
-// *** Fonction d"affichage du bouton si tous les inputs sont remplis correctement *** //
-// ----------------------------------------------------------------------------------- //
-function displayButton(clientOrder){
-
-    if(Object.keys(clientOrder.contact).length != 5){
-        let button = document.getElementById("submit-order");
-        button.style.backgroundColor = "#68687A";
-        button.style.color = "#000000";
-        button.style.pointerEvents = "none";
+    if(localStorage.length > 0){
+        notifications.style.opacity = "1";
+        notifications.textContent = notificationNumber;
     }else{
-        let button = document.getElementById("submit-order");
-        button.style.backgroundColor = "#6f44c4";
-        button.style.color = "#FFFFFF";
-        button.style.pointerEvents = "auto";
-        button.style.cursor = "pointer";
+        notifications.style.opacity = "0";
     }
 }
 
-// *** Fonction de validation des inputs utilisateur *** //
-// ----------------------------------------------------- //
-function validateInputs(firstName, lastName, address, city, email, clientOrder){
-    
-    //Définition des différentes Regex utilisées
-    let firstNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s"]+$/;
-    let lastNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s"]+$/;
-    let addressRegex = /^[0-9a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s",]+$/;
-    let cityRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s"]+$/;
-    let emailRegex = /^[a-zA-Z0-9.\-]+@([a-zA-Z0-9]{2,10})+(\.[a-zA-Z]{2,3})+((\.[a-zA-Z]{2,3})?)+$/;
-    
-    // Fonction de validation de la Regex. Renvoie true si le texte match la Regex
-    function isValid(regex, input) {
-        return regex.test(input.target.value);
+// *** Affichage du bouton si tous les inputs sont remplis correctement *** //
+// ------------------------------------------------------------------------ //
+function displayButton(inputsList, submitButton){
+    if(inputsList.firstName != true || inputsList.lastName != true || inputsList.address != true || inputsList.city != true || inputsList.email != true){
+
+        submitButton.style.backgroundColor = "#68687A";
+        submitButton.style.color = "#000000";
+        submitButton.style.pointerEvents = "none";
+    }else{
+
+        submitButton.style.backgroundColor = "#6f44c4";
+        submitButton.style.color = "#FFFFFF";
+        submitButton.style.pointerEvents = "auto";
+        submitButton.style.cursor = "pointer";
     }
-
-    // Test de chaque input selon la Regex définie
-
-    firstName.addEventListener("change", (e) =>{
-        if(isValid(firstNameRegex, e)){
-            clientOrder.contact.firstName = e.target.value;
-            displayButton(clientOrder);
-        }
-    });
-    
-    lastName.addEventListener("change", (e) =>{
-        if(isValid(lastNameRegex, e)){
-            clientOrder.contact.lastName = e.target.value;
-            displayButton(clientOrder);
-        }
-    });
-    
-    address.addEventListener("change", (e) =>{
-        if(isValid(addressRegex, e)){
-            clientOrder.contact.address = e.target.value;
-            displayButton(clientOrder);
-        }
-    });
-    
-    city.addEventListener("change", (e) =>{
-        if(isValid(cityRegex, e)){
-            clientOrder.contact.city = e.target.value;
-            displayButton(clientOrder);
-        }
-    });
-    
-    email.addEventListener("change", (e) =>{
-        if(isValid(emailRegex, e)){
-            clientOrder.contact.email = e.target.value;
-            displayButton(clientOrder);
-        }
-    });
 }
 
-
-module.exports = {
-    getData, 
-    postData
+// *** Validation de la Regex. Renvoie true si le texte match la Regex *** //
+// ----------------------------------------------------------------------- //
+function isValid(regex, input) {
+    return regex.test(input.target.value);
 }
