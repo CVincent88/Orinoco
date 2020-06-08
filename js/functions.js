@@ -28,6 +28,7 @@ function postData(url, objectToPost) {
 async function buildIndex(){
     try{
         let response = await getData("http://localhost:3000/api/cameras/");
+        let numberOfArticles = 0;
         
         for(i=0; i<response.length; i++){
             let newArticle = new Product(response[i].name, response[i].lenses, response[i]._id, response[i].price, response[i].description, response[i].imageUrl);
@@ -38,10 +39,18 @@ async function buildIndex(){
             newArticle.productName();
             newArticle.productDescription();
             newArticle.productPrice();
+            numberOfArticles ++
         }
         cartNotifications();
+
+        // Condition permettant de tester la fonction
+        if(numberOfArticles === response.length){
+            return true
+        }
+
     }catch(error){
         console.log(error);
+        return false
     }
 }
 
@@ -73,15 +82,10 @@ async function buildProductPage(){
             addToCart(cart, articleSelected);
 
             // Mise à jour de la notification après ajout du produit au panier
-            cartNotifications();     
-            
-            let notif = document.getElementById('notifications');
-            notif.style.animationPlayState = 'running';
-            notif.style.animationPlayState = 'initial';
-            setTimeout(()=>{
-                notif.style.animationPlayState = 'paused';
-            }, 1500);
+            cartNotifications();
+            notifAnimation();
         });
+
     }catch(error){
         console.log(error);
     }
@@ -93,12 +97,9 @@ async function submitOrder(clientOrder){
     try{
         const response = await postData("http://localhost:3000/api/cameras", clientOrder);
 
-        function orderConfirmation(firstName, orderId){
-            localStorage.setItem('name', `${firstName}`);
-            localStorage.setItem('confirmation id', `${orderId}`);
-        }
-    
-        orderConfirmation(response.contact.firstName, response.orderId);
+        localStorage.setItem('name', `${response.contact.firstName}`);
+        localStorage.setItem('confirmation id', `${response.orderId}`);
+
         window.location.href = "confirmation.html"
 
     }catch(error){
@@ -113,7 +114,8 @@ function addToCart(cart, articleSelected){
     if (localStorage.length === 0){
         cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
         localStorage.setItem("cart", JSON.stringify(cart));
-        localStorage.setItem("notificationNumber", 1);
+        localStorage.setItem("notificationNumber", 1);     
+
     }else{
         cart = JSON.parse(localStorage.getItem("cart"));
         const cartEntries = Object.keys(cart)
@@ -127,8 +129,8 @@ function addToCart(cart, articleSelected){
 
         }else{
             cart[articleSelected.id] = {name: articleSelected.name, id: articleSelected.id, price: articleSelected.price, imageUrl: articleSelected.imageUrl, quantity: 1};
-            notificationNumber ++;
-            
+            notificationNumber ++;          
+
             localStorage.setItem("cart", JSON.stringify(cart));
             localStorage.setItem("notificationNumber", notificationNumber);
         }  
@@ -215,7 +217,7 @@ function deleteArticle(itemId){
         localStorage.setItem("notificationNumber", notificationNumber);
         localStorage.setItem("cart", JSON.stringify(itemsInCart));  
     }  
-    window.location.reload(); 
+    window.location.reload();
 }
 
 // *** Affichage de la notification pour le nombre d"éléments dans le panier *** //
@@ -254,4 +256,11 @@ function displayButton(inputsList, submitButton){
 // ----------------------------------------------------------------------- //
 function isValid(regex, input) {
     return regex.test(input.target.value);
+}
+
+// *** Animation de la pastille notification *** //
+// --------------------------------------------- //
+function notifAnimation(){
+    let notif = document.getElementById('notifications');
+    notif.style.animationPlayState = 'running';
 }
