@@ -83,7 +83,10 @@ async function buildProductPage(){
 
             // Mise à jour de la notification après ajout du produit au panier
             cartNotifications();
-            notifAnimation();
+            
+            // Animation de la notification
+            let notif = document.getElementById('notifications');
+            notif.style.animationPlayState = 'running';
         });
 
     }catch(error){
@@ -139,8 +142,8 @@ function addToCart(cart, articleSelected){
 
 // *** Ajoute une instance à un article déjà dans le panier *** //
 // ------------------------------------------------------------ //
-function addArticle(addProduct, quantityNumber){ 
-    let dataId = addProduct.dataset.id;
+function addArticle(button, quantityNumber){ 
+    let dataId = button.dataset.id;
     let notifNumber = localStorage.getItem("notificationNumber");
 
     if(itemsInCart[dataId].quantity < 15 && itemsInCart[dataId].quantity >= 0){
@@ -243,24 +246,20 @@ function displayButton(inputsList, submitButton){
         submitButton.style.backgroundColor = "#68687A";
         submitButton.style.color = "#000000";
         submitButton.style.pointerEvents = "none";
+
+        return true
     }else{
 
         submitButton.style.backgroundColor = "#6f44c4";
         submitButton.style.color = "#FFFFFF";
         submitButton.style.pointerEvents = "auto";
         submitButton.style.cursor = "pointer";
+        return false
     }
 }
 
-// *** Validation de la Regex. Renvoie true si le texte match la Regex *** //
+// *** Validation de la Regex. Renvoie true si l'input match la Regex *** //
 // ----------------------------------------------------------------------- //
 function isValid(regex, input) {
     return regex.test(input.target.value);
-}
-
-// *** Animation de la pastille notification *** //
-// --------------------------------------------- //
-function notifAnimation(){
-    let notif = document.getElementById('notifications');
-    notif.style.animationPlayState = 'running';
 }
