@@ -1,7 +1,7 @@
 // Création de la variable pour le coût total du panier
 let totalCartPrice = 0;
 // Récupération des éléments dans le panier
-itemsInCart = JSON.parse(localStorage.getItem('cart'));
+let itemsInCart = JSON.parse(localStorage.getItem('cart'));
 
 
 if(localStorage.length > 0){ // Si il y a au moins un élément dans localStorage, on afiche le contenu du panier et le formulaire.

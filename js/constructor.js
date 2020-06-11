@@ -28,7 +28,6 @@ class Product{
             defineList.appendChild(newListElt);
 
             // Création du lien vers la page produit
-            // let newLinkElt = document.createElement("a");
             newLinkElt.setAttribute("href", `product.html?id=${this.id}`);
             newLinkElt.classList.add("list-element_link");
             newListElt.appendChild(newLinkElt);

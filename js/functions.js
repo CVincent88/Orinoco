@@ -100,8 +100,8 @@ async function submitOrder(clientOrder){
     try{
         const response = await postData("http://localhost:3000/api/cameras", clientOrder);
 
-        localStorage.setItem('name', `${response.contact.firstName}`);
-        localStorage.setItem('confirmation id', `${response.orderId}`);
+        sessionStorage.setItem('name', `${response.contact.firstName}`);
+        sessionStorage.setItem('confirmation id', `${response.orderId}`);
 
         window.location.href = "confirmation.html"
 
@@ -164,9 +164,9 @@ function addArticle(button, quantityNumber){
 
 // *** Supprime une instance d'un article dans le panier *** //
 // --------------------------------------------------------- //
-function subtractArticle(subtractProduct, quantityNumber){
+function subtractArticle(button, quantityNumber){
 
-    let dataId = subtractProduct.dataset.id;
+    let dataId = button.dataset.id;
     let notifNumber = localStorage.getItem("notificationNumber");
 
     itemsInCart[dataId].quantity --;
