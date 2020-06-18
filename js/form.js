@@ -25,7 +25,7 @@ if(itemsInCart !== null){
     let city = document.getElementById('city');
     let email = document.getElementById('email');
 
-    //Définition des différentes Regex utilisées
+    //Définition des différentes Regex utilisées    
     let firstNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s"]+$/;
     let lastNameRegex = /^[a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s"]+$/;
     let addressRegex = /^[0-9a-zA-Z\-àâäÂÄéèêëÊËîïÎÏôöÔÖùûüÛÜ\s",.]+$/;

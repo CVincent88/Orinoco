@@ -2,6 +2,8 @@
 // ---------------------------------- //
 buildIndex();
 
+cartNotifications();
+
 
 
 

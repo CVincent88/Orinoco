@@ -41,7 +41,6 @@ async function buildIndex(){
             newArticle.productPrice();
             numberOfArticles ++
         }
-        cartNotifications();
 
         // Condition permettant de tester la fonction
         if(numberOfArticles === response.length){
