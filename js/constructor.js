@@ -121,7 +121,7 @@ class Product{
             for(let j=0; j<article.lenses.length; j++){
                 let customizationOptionNumber = article.lenses.length;
 
-                if(customizationOptionNumber <= 1){ // Si une seule lentille disponible, message différent
+                if(customizationOptionNumber === 1){ // Si une seule lentille disponible, message différent
                     customizationText.textContent = "Nous n\"avons que cette lentille pour le moment: "
                 }else{
                     customizationText.textContent = "Choisissez une lentille: "
